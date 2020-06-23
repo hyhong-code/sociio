@@ -5,7 +5,8 @@ const PostSchema = new mongoose.Schema({
     type: String,
     trim: true,
     required: true,
-    minlength: [10, 'A post is at least 10 characters long'],
+    minlength: [10, 'A post must be at least 10 characters long'],
+    maxlength: [280, 'A post must be no more than 280 characters long'],
   },
   location: {
     type: [Number],
@@ -21,10 +22,14 @@ const PostSchema = new mongoose.Schema({
       message: 'A post can have 3 hashtags max',
     },
   },
-  user: {
+  postedBy: {
     type: mongoose.Schema.ObjectId,
     ref: 'User',
     required: true,
+  },
+  postedAt: {
+    type: Date,
+    default: Date.now(),
   },
 });
 
