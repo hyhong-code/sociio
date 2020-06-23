@@ -23,8 +23,7 @@ exports.createPost = asyncHandler(async (req, res, next) => {
 // @DESC    GET POSTS
 // @ROUTE   GET /api/v1/posts
 // @ACCESS  PUBLIC
-exports.getPost = asyncHandler(async (req, res, next) => {
-  console.log(req.query);
+exports.getPosts = asyncHandler(async (req, res, next) => {
   const query = Post.find();
   const posts = await new QueryOptions(query, req.query)
     .filter()
@@ -36,5 +35,24 @@ exports.getPost = asyncHandler(async (req, res, next) => {
     status: 'success',
     results: posts.length,
     data: { posts },
+  });
+});
+
+// @DESC    GET A POST
+// @ROUTE   GET /api/v1/posts/:id
+// @ACCESS  PUBLIC
+exports.getPost = asyncHandler(async (req, res, next) => {
+  const post = await Post.findById(req.params.id);
+
+  // HANDLE NO POSTS FOUND
+  if (!post) {
+    return next(new CustomError(`No post found with id ${req.params.id}`, 404));
+  }
+
+  // ---------------------------- TODO : POPULATE USER PROFILE, COMMENTS ---------------------------
+
+  res.status(200).json({
+    status: 'success',
+    data: { post },
   });
 });
