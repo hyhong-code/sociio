@@ -31,7 +31,7 @@ exports.signUp = asyncHandler(async (req, res, next) => {
 // @ACCESS  PUBLIC
 exports.logIn = asyncHandler(async (req, res, next) => {
   const { email, password } = req.body;
-  const user = await User.findOne({ email });
+  const user = await User.findOne({ email }).select('+password');
 
   if (!(email && password)) {
     return next(new CustomError(`Email and password are required`, 400));
@@ -60,9 +60,53 @@ exports.loadMe = asyncHandler(async (req, res, next) => {
   });
 });
 
+// @DESC    UPDATE LOGGED IN USER INFO
+// @ROUTE   PATCH /api/v1/auth/updateinfo
+// @ACCESS  PRIVATE
+exports.updateMe = asyncHandler(async (req, res, next) => {
+  const filteredBody = filterBody(req.body, 'handle', 'name', 'email');
+  const user = await User.findByIdAndUpdate(req.user.id, filteredBody, {
+    new: true,
+    runValidators: true,
+  });
+  res.status(200).json({
+    status: 'success',
+    data: { user },
+  });
+});
+
+// @DESC    UPDATE LOGGED IN USER PASSWORD
+// @ROUTE   PATCH /api/v1/auth/updatepassword
+// @ACCESS  PRIVATE
+exports.updatePassword = asyncHandler(async (req, res, next) => {
+  const { currentPassword, newPassword, newPasswordConfirmed } = req.body;
+
+  // HANDLE MISSING FIELDS
+  if (!(currentPassword && newPassword && newPasswordConfirmed)) {
+    return next(
+      new CustomError(
+        `Fields currentPassword, newPassword, and newPasswordConfirmed are required`,
+        400
+      )
+    );
+  }
+
+  // HANDLE INCORRECT PASSWORD
+  let user = await User.findById(req.user.id).select('+password');
+  if (!(await user.verifyPassword(currentPassword))) {
+    return next(new CustomError(`Password incorrect`, 401));
+  }
+
+  // UPDATE PASSWORD
+  user.password = newPassword;
+  user.confirmPassword = newPasswordConfirmed;
+  user = await user.save({ validateBeforeSave: true });
+
+  cookieTokenResponse(user, 200, res);
+});
+
 // AUTHENTICATE USER
 exports.protect = asyncHandler(async (req, res, next) => {
-  console.log(req.headers, req.cookies);
   let token;
 
   // HANDLE BEARER TOKEN
