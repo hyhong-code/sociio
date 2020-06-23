@@ -1,5 +1,25 @@
 const Influence = require('../models/Influence');
+const User = require('../models/User');
 const asyncHandler = require('../utils/asyncHandler');
+
+// @DESC    GET A USER'S FOLLOWERS AND FOLLOWING
+// @ROUTE   GET /api/v1/users/:userId/influences
+// @ACCESS  PUBLIC
+exports.getUserInfluence = asyncHandler(async (req, res, next) => {
+  const influences = await Influence.find({ user: req.params.userId })
+    .populate({
+      path: 'followers',
+      select: 'name handle profilePic',
+    })
+    .populate({
+      path: 'following',
+      select: 'name handle profilePic',
+    });
+  res.status(200).json({
+    status: 'success',
+    data: { influences },
+  });
+});
 
 // @DESC    FOLLOW A USER
 // @ROUTE   PATCH /api/v1/users/:userId/influences/follow
@@ -46,5 +66,24 @@ exports.unfollowUser = asyncHandler(async (req, res, next) => {
   res.status(200).json({
     status: 'success',
     data: { myInfluence, userInfluence },
+  });
+});
+
+// @DESC    GET FOLLOWERS AND FOLLOWING USERS
+// @ROUTE   GET /api/v1/influences
+// @ACCESS  PRIVATE
+exports.getMyInfluence = asyncHandler(async (req, res, next) => {
+  const influences = await Influence.find({ user: req.user.id })
+    .populate({
+      path: 'followers',
+      select: 'name handle profilePic',
+    })
+    .populate({
+      path: 'following',
+      select: 'name handle profilePic',
+    });
+  res.status(200).json({
+    status: 'success',
+    data: { influences },
   });
 });
