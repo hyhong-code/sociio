@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
 const bcrypt = require('bcryptjs');
-const jwt = require('mongoose');
+const jwt = require('jsonwebtoken');
 
 const UserSchema = new mongoose.Schema({
   handle: {
@@ -9,6 +9,8 @@ const UserSchema = new mongoose.Schema({
     trim: true,
     lowercase: true,
     unique: [true, 'A handle must be unique'],
+    minlength: [5, 'A handle is at least 5 characters long'],
+    maxlength: [15, 'A handle must be no more than 15 characters long'],
     required: [true, 'A handle is required'],
     match: [/[a-z0-9_-]+/, 'A handle must only contain a-z, 0-9, _, and -'],
   },
@@ -78,7 +80,7 @@ UserSchema.methods.verifyPassword = async function (plain) {
 
 // GENERATE JWT TOKEN
 UserSchema.methods.genJwtToken = function () {
-  return jwt.sign({ id: this_id }, process.env.JWT_SECRET, {
+  return jwt.sign({ id: this._id }, process.env.JWT_SECRET, {
     expiresIn: process.env.JWT_EXPIRES,
   });
 };
