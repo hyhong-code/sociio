@@ -37,7 +37,7 @@ exports.getMyProfile = asyncHandler(async (req, res, next) => {
 
 // @DESC    UPDATE USER'S PROFILE
 // @ROUTE   PATCH /api/v1/profile/me
-// @ACCESS  PRIVATE
+// @ACCESS  PRIVATE - owner
 exports.updateMyProfile = asyncHandler(async (req, res, next) => {
   // UPDATE FIELDS IN USER MODEL
   const userInfoUpdate = filterBody(req.body, 'handle', 'email', 'name');

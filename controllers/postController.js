@@ -56,3 +56,61 @@ exports.getPost = asyncHandler(async (req, res, next) => {
     data: { post },
   });
 });
+
+// @DESC    UPDATE A POST
+// @ROUTE   PATCH /api/v1/posts/:id
+// @ACCESS  PRIVATE - owner
+exports.updatePost = asyncHandler(async (req, res, next) => {
+  let post = await Post.findById(req.params.id);
+
+  // HANDLE NO POSTS FOUND
+  if (!post) {
+    return next(new CustomError(`No post found with id ${req.params.id}`, 404));
+  }
+
+  // HANDLE USER IS NOT THE OWNER OF POST
+  if (post.postedBy.toString() !== req.user.id && req.user.role !== 'admin') {
+    return next(
+      new CustomError(`User not authorized to access this route`, 401)
+    );
+  }
+
+  // UPDATE POST
+  const filteredBody = filterBody(req.body, 'text', 'location', 'hashtags');
+  post = await Post.findByIdAndUpdate(req.params.id, filteredBody, {
+    new: true,
+    runValidators: true,
+  });
+
+  res.status(200).json({
+    status: 'success',
+    data: { post },
+  });
+});
+
+// @DESC    DELETE A POST
+// @ROUTE   DELETE /api/v1/posts/:id
+// @ACCESS  PRIVATE - owner
+exports.deletePost = asyncHandler(async (req, res, next) => {
+  const post = await Post.findById(req.params.id);
+
+  // HANDLE NO POSTS FOUND
+  if (!post) {
+    return next(new CustomError(`No post found with id ${req.params.id}`, 404));
+  }
+
+  // HANDLE USER IS NOT THE OWNER OF POST
+  if (post.postedBy.toString() !== req.user.id && req.user.role !== 'admin') {
+    return next(
+      new CustomError(`User not authorized to access this route`, 401)
+    );
+  }
+
+  // DELETE POST
+  await post.remove();
+
+  res.status(204).json({
+    status: 'success',
+    data: null,
+  });
+});

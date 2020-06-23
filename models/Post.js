@@ -20,7 +20,7 @@ const PostSchema = new mongoose.Schema(
       type: [String],
       validate: {
         validator: (v) => v.length <= 5,
-        message: 'A post can have 3 hashtags max',
+        message: 'A post can have 5 hashtags max',
       },
     },
     image: String,

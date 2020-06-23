@@ -52,7 +52,7 @@ exports.logIn = asyncHandler(async (req, res, next) => {
 
 // @DESC    UPDATE LOGGED IN USER PASSWORD
 // @ROUTE   PATCH /api/v1/auth/updatepassword
-// @ACCESS  PRIVATE
+// @ACCESS  PRIVATE - owner
 exports.updatePassword = asyncHandler(async (req, res, next) => {
   const { currentPassword, newPassword, newPasswordConfirmed } = req.body;
 
@@ -82,7 +82,7 @@ exports.updatePassword = asyncHandler(async (req, res, next) => {
 
 // @DESC    DELETE LOGGED IN USER
 // @ROUTE   DELETE /api/v1/auth/deleteMe
-// @ACCESS  PRIVATE
+// @ACCESS  PRIVATE - owner
 exports.deleteMe = asyncHandler(async (req, res, next) => {
   const { currentPassword } = req.body;
 
