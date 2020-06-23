@@ -8,7 +8,7 @@ const router = express.Router();
 
 // RE-ROUTES
 router.use('/:userId/influences', influenceRouter);
-router.use('/:userId/profiles', profileRouter);
+router.use('/:userId/profile', profileRouter);
 
 router.route('/').get(getUsers);
 router.route('/:id').get(getUser);

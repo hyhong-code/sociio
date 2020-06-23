@@ -40,7 +40,10 @@ ProfileSchema.virtual('influence', {
 ProfileSchema.pre(/^find/, function (next) {
   this.populate({
     path: 'influence',
-    select: 'followers following',
+    select: '-__v',
+  }).populate({
+    path: 'user',
+    select: '-__v',
   });
   next();
 });
