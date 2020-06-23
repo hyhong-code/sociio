@@ -6,8 +6,7 @@ const cookieParser = require('cookie-parser');
 const authRouter = require('./routes/authRouter');
 const userRouter = require('./routes/userRouter');
 const influenceRouter = require('./routes/influenceRouter');
-
-const Influence = require('./models/Influence');
+const profileRouter = require('./routes/profileRouter');
 
 // MIDDLEWARES
 const app = express();

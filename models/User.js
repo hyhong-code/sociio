@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const validator = require('validator');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const Influence = require('./Influence');
+const Profile = require('./Profile');
 
 const UserSchema = new mongoose.Schema(
   {
@@ -77,11 +77,28 @@ const UserSchema = new mongoose.Schema(
   }
 );
 
+// VIRTUAL POPULATE USER'S FOLLOWERS AND FOLLOWING
+// UserSchema.virtual('profile', {
+//   ref: 'Influence',
+//   localField: '_id',
+//   foreignField: 'user',
+//   justOne: true, // RETURNS AN ARRAY OTHERWISE
+// });
+
 // FILTER OUT INACTIVE USERS FROM QUERIES
 UserSchema.pre(/^find/, function (next) {
   this.find({ isActive: { $ne: false } });
   next();
 });
+
+// POPULTE FOLLOWERS AND FOLLOWING
+// UserSchema.pre(/^find/, function (next) {
+//   this.populate({
+//     path: 'profile',
+//     select: 'followers following',
+//   });
+//   next();
+// });
 
 // HASH USER PASSWORD
 UserSchema.pre('save', async function (next) {

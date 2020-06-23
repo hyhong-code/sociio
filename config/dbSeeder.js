@@ -34,7 +34,7 @@ const destroyData = async () => {
   try {
     // Model.deleteMany()......
     await User.deleteMany();
-    // await Influence.deleteMany();
+    await Influence.deleteMany();
     console.log('Data destroyed...');
   } catch (error) {
     console.error(error);

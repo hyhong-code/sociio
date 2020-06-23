@@ -15,7 +15,7 @@ const InfluenceSchema = new mongoose.Schema({
       },
     ],
   },
-  followedBy: {
+  following: {
     type: [
       {
         type: mongoose.Schema.ObjectId,
