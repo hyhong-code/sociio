@@ -4,6 +4,9 @@ const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 
 const authRouter = require('./routes/authRouter');
+const userRouter = require('./routes/userRouter');
+
+const Influence = require('./models/Influence');
 
 // MIDDLEWARES
 const app = express();
@@ -15,6 +18,7 @@ app.use(cookieParser());
 
 // MOUNT ROUTERS
 app.use('/api/v1/auth', authRouter);
+app.use('/api/v1/users', userRouter);
 
 // GLOBAL ERROR HANDELR
 app.use('*', errorController);

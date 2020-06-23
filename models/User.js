@@ -76,13 +76,6 @@ const UserSchema = new mongoose.Schema(
   }
 );
 
-// VIRTUAL FIELD FOR GETTING FOLLOWERS AND FOLLOWED BY
-UserSchema.virtual('influence', {
-  ref: 'Influence',
-  localField: '_id',
-  foreignField: 'user',
-});
-
 // FILTER OUT INACTIVE USERS FROM QUERIES
 UserSchema.pre(/^find/, function (next) {
   this.find({ isActive: { $ne: false } });
