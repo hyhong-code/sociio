@@ -4,6 +4,7 @@ const User = require('../models/User');
 const filterBody = require('../utils/filterBody');
 const cookieTokenResponse = require('../utils/cookieTokenResponse');
 const jwt = require('jsonwebtoken');
+const Profile = require('../models/Profile');
 
 // @DESC    SIGN UP USER
 // @ROUTE   POST /api/v1/auth/signup
@@ -52,12 +53,12 @@ exports.logIn = asyncHandler(async (req, res, next) => {
 // @DESC    LOAD LOGGED IN USER
 // @ROUTE   GET /api/v1/auth/loadme
 // @ACCESS  PRIVATE
-exports.loadMe = asyncHandler(async (req, res, next) => {
-  res.status(200).json({
-    status: 'success',
-    data: { user: req.user },
-  });
-});
+// exports.loadMe = asyncHandler(async (req, res, next) => {
+//   res.status(200).json({
+//     status: 'success',
+//     data: { user: req.user },
+//   });
+// });
 
 // @DESC    UPDATE LOGGED IN USER INFO
 // @ROUTE   PATCH /api/v1/auth/updateinfo
