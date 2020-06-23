@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const Post = require('./Post');
 
 const CommentSchema = new mongoose.Schema({
   text: {
@@ -22,6 +23,27 @@ const CommentSchema = new mongoose.Schema({
     type: Date,
     default: Date.now(),
   },
+});
+
+// CALCULATE AND UPDATE NUMBER OF COMMENTS OF A POST
+CommentSchema.statics.calNumComments = async function (postId) {
+  const post = await Post.findById(postId);
+  const result = await this.aggregate([
+    { $match: { post: postId } },
+    { $group: { _id: '$post', numComments: { $sum: 1 } } },
+  ]);
+  post.numComments = result[0].numComments;
+  await post.save();
+};
+
+CommentSchema.pre('save', function (next) {
+  this.constructor.calNumComments(this.post);
+  next();
+});
+
+CommentSchema.pre('remove', function (next) {
+  this.constructor.calNumComments(this.post);
+  next();
 });
 
 module.exports = mongoose.model('Comment', CommentSchema);

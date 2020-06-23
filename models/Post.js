@@ -48,4 +48,20 @@ const PostSchema = new mongoose.Schema(
   }
 );
 
+// VIRTUAL POPULATE COMMENTS
+PostSchema.virtual('comments', {
+  ref: 'Comment',
+  localField: '_id',
+  foreignField: 'post',
+  justOne: false,
+});
+
+PostSchema.pre(/^find/, function (next) {
+  this.populate({
+    path: 'comments',
+    select: 'text commentedAt commentedBy',
+  });
+  next();
+});
+
 module.exports = mongoose.model('Post', PostSchema);

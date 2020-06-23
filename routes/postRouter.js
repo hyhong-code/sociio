@@ -10,7 +10,11 @@ const {
   unlikePost,
 } = require('../controllers/postController');
 
+const commentRouter = require('./commentRouter.js');
+
 const router = express.Router();
+
+router.use('/:postId/comments', commentRouter);
 
 router.route('/').get(getPosts).post(protect, createPost);
 router
