@@ -32,7 +32,12 @@ CommentSchema.statics.calNumComments = async function (postId) {
     { $match: { post: postId } },
     { $group: { _id: '$post', numComments: { $sum: 1 } } },
   ]);
-  post.numComments = result[0].numComments;
+
+  if (!result.length) {
+    post.numComments = 0;
+  } else {
+    post.numComments = result[0].numComments;
+  }
   await post.save();
 };
 
