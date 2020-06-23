@@ -18,6 +18,9 @@ if (process.env.NODE_ENV === 'development') {
 app.use(express.json());
 app.use(cookieParser());
 
+// SERVE STATIC FILES
+app.use(express.static(`${__dirname}/public`));
+
 // MOUNT ROUTERS
 app.use('/api/v1/auth', authRouter);
 app.use('/api/v1/users', userRouter);

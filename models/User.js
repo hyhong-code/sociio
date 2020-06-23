@@ -42,6 +42,7 @@ const UserSchema = new mongoose.Schema(
     },
     profilePic: {
       type: String,
+      default: 'default.jpeg',
     },
     confirmPassword: {
       type: String,

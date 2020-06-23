@@ -74,6 +74,10 @@ ProfileSchema.pre(/^find/, function (next) {
     .populate({
       path: 'comments',
       select: '-__v',
+    })
+    .populate({
+      path: 'likedPosts',
+      select: '-__v',
     });
   next();
 });
