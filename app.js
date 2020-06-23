@@ -20,6 +20,7 @@ app.use(cookieParser());
 app.use('/api/v1/auth', authRouter);
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/influences', influenceRouter);
+app.use('/api/v1/profiles', profileRouter);
 
 // GLOBAL ERROR HANDELR
 app.use('*', errorController);
