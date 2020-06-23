@@ -7,6 +7,7 @@ const authRouter = require('./routes/authRouter');
 const userRouter = require('./routes/userRouter');
 const influenceRouter = require('./routes/influenceRouter');
 const profileRouter = require('./routes/profileRouter');
+const postRouter = require('./routes/postRouter');
 
 // MIDDLEWARES
 const app = express();
@@ -19,8 +20,8 @@ app.use(cookieParser());
 // MOUNT ROUTERS
 app.use('/api/v1/auth', authRouter);
 app.use('/api/v1/users', userRouter);
-app.use('/api/v1/influences', influenceRouter);
 app.use('/api/v1/profile', profileRouter);
+app.use('/api/v1/posts', postRouter);
 
 // GLOBAL ERROR HANDELR
 app.use('*', errorController);

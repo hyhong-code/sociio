@@ -22,6 +22,14 @@ const ProfileSchema = new mongoose.Schema(
         message: 'Location must be in the format of [lat, lng]',
       },
     },
+    likedPosts: {
+      type: [
+        {
+          type: mongoose.Schema.ObjectId,
+          ref: 'Post',
+        },
+      ],
+    },
   },
   {
     toJSON: { virtuals: true },

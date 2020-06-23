@@ -8,6 +8,11 @@ const CommentSchema = new mongoose.Schema({
     minlength: [5, 'A comment must be at least 5 characters long'],
     maxlength: [140, 'A comment must be no more than 280 characters long'],
   },
+  post: {
+    type: mongoose.Schema.ObjectId,
+    ref: 'Post',
+    required: true,
+  },
   commentedBy: {
     type: mongoose.Schema.ObjectId,
     ref: 'User',
