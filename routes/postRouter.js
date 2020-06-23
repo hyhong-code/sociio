@@ -8,6 +8,7 @@ const {
   deletePost,
   likePost,
   unlikePost,
+  getMyFollowingPosts,
 } = require('../controllers/postController');
 
 const commentRouter = require('./commentRouter.js');
@@ -16,6 +17,7 @@ const router = express.Router();
 
 router.use('/:postId/comments', commentRouter);
 
+router.route('/myfollow').get(protect, getMyFollowingPosts);
 router.route('/').get(getPosts).post(protect, createPost);
 router
   .route('/:id')

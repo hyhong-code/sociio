@@ -25,6 +25,14 @@ const CommentSchema = new mongoose.Schema({
   },
 });
 
+CommentSchema.pre(/^find/, function (next) {
+  this.populate({
+    path: 'commentedBy',
+    select: 'name handle profilePic',
+  });
+  next();
+});
+
 // CALCULATE AND UPDATE NUMBER OF COMMENTS OF A POST
 CommentSchema.statics.calNumComments = async function (postId) {
   const post = await Post.findById(postId);

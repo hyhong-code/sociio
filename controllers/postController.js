@@ -39,18 +39,32 @@ exports.getPosts = asyncHandler(async (req, res, next) => {
   });
 });
 
+// @DESC    GET POSTS OF MY FOLLOWING
+// @ROUTE   GET /api/v1/posts/myfollow
+// @ACCESS  PRIVATE
+exports.getMyFollowingPosts = asyncHandler(async (req, res, next) => {
+  const profile = await Profile.findOne({ user: req.user.id });
+  const posts = await Post.find({
+    postedBy: { $in: profile.influence.following },
+  });
+
+  res.status(201).json({
+    status: 'success',
+    results: posts.length,
+    data: { posts },
+  });
+});
+
 // @DESC    GET A POST
 // @ROUTE   GET /api/v1/posts/:id
 // @ACCESS  PUBLIC
 exports.getPost = asyncHandler(async (req, res, next) => {
-  const post = await Post.findById(req.params.id);
+  const post = await Post.findById(req.params.id).populate('comments');
 
   // HANDLE NO POSTS FOUND
   if (!post) {
     return next(new CustomError(`No post found with id ${req.params.id}`, 404));
   }
-
-  // ---------------------------- TODO : POPULATE USER PROFILE, COMMENTS ---------------------------
 
   res.status(200).json({
     status: 'success',

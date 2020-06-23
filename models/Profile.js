@@ -8,9 +8,6 @@ const ProfileSchema = new mongoose.Schema(
       required: true,
       unique: true,
     },
-    profilePic: {
-      type: String,
-    },
     bio: {
       type: String,
       maxlengh: 140,
@@ -45,10 +42,19 @@ ProfileSchema.virtual('influence', {
   justOne: true,
 });
 
+// VIRTUAL POPULATE POSTS
 ProfileSchema.virtual('posts', {
   ref: 'Post',
   localField: 'user',
   foreignField: 'postedBy',
+  justOne: false,
+});
+
+// VIRTUAL POPULATES
+ProfileSchema.virtual('comments', {
+  ref: 'Comment',
+  localField: 'user',
+  foreignField: 'commentedBy',
   justOne: false,
 });
 
@@ -64,10 +70,12 @@ ProfileSchema.pre(/^find/, function (next) {
     .populate({
       path: 'posts',
       select: '-__v',
+    })
+    .populate({
+      path: 'comments',
+      select: '-__v',
     });
   next();
 });
-
-ProfileSchema.pre(/findByIdAnd/, function (next) {});
 
 module.exports = mongoose.model('Profile', ProfileSchema);

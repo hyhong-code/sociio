@@ -58,8 +58,8 @@ PostSchema.virtual('comments', {
 
 PostSchema.pre(/^find/, function (next) {
   this.populate({
-    path: 'comments',
-    select: 'text commentedAt commentedBy',
+    path: 'postedBy',
+    select: 'handle name profilePic',
   });
   next();
 });
