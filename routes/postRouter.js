@@ -6,6 +6,8 @@ const {
   getPost,
   updatePost,
   deletePost,
+  likePost,
+  unlikePost,
 } = require('../controllers/postController');
 
 const router = express.Router();
@@ -16,5 +18,7 @@ router
   .get(getPost)
   .patch(protect, updatePost)
   .delete(protect, deletePost);
+router.route('/:id/like').patch(protect, likePost);
+router.route('/:id/unlike').patch(protect, unlikePost);
 
 module.exports = router;

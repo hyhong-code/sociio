@@ -56,4 +56,6 @@ ProfileSchema.pre(/^find/, function (next) {
   next();
 });
 
+ProfileSchema.pre(/findByIdAnd/, function (next) {});
+
 module.exports = mongoose.model('Profile', ProfileSchema);

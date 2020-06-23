@@ -3,6 +3,7 @@ const asyncHandler = require('../utils/asyncHandler');
 const CustomError = require('../utils/customError');
 const QueryOptions = require('../utils/queryOptions');
 const filterBody = require('../utils/filterBody');
+const Profile = require('../models/Profile');
 
 // @DESC    CREATE A POST
 // @ROUTE   POST /api/v1/posts
@@ -112,5 +113,71 @@ exports.deletePost = asyncHandler(async (req, res, next) => {
   res.status(204).json({
     status: 'success',
     data: null,
+  });
+});
+
+// @DESC    LIKE A POST
+// @ROUTE   PATCH /api/v1/posts/:id/like
+// @ACCESS  PRIVATE - owner
+exports.likePost = asyncHandler(async (req, res, next) => {
+  const post = await Post.findById(req.params.id);
+  // HANDLE NO POSTS FOUND
+  if (!post) {
+    return next(new CustomError(`No post found with id ${req.params.id}`, 404));
+  }
+
+  // HANDLE USER ALREADY LIKED POST
+  const profile = await Profile.findOne({ user: req.user.id });
+  if (profile.likedPosts.includes(req.params.id)) {
+    return next(new CustomError(`You've already liked this post`, 400));
+  }
+
+  // REMOVE POST FROM USER'S LIKED POSTS LIST
+  profile.likedPosts.unshift(req.params.id);
+  await profile.save();
+
+  // UPDATE POST LIKE COUNT
+  post.numLikes += 1;
+  await post.save();
+
+  res.status(200).json({
+    status: 'success',
+    data: { post },
+  });
+});
+
+// @DESC    UNLIKE A POST
+// @ROUTE   PATCH /api/v1/posts/:id/unlike
+// @ACCESS  PRIVATE - owner
+exports.unlikePost = asyncHandler(async (req, res, next) => {
+  const post = await Post.findById(req.params.id);
+  // HANDLE NO POSTS FOUND
+  if (!post) {
+    return next(new CustomError(`No post found with id ${req.params.id}`, 404));
+  }
+
+  // HANDLE USER NOT YET LIKED THE POST
+  const profile = await Profile.findOne({ user: req.user.id });
+
+  console.log(profile.likedPosts);
+  console.log(!profile.likedPosts.includes(req.params.id));
+
+  if (!profile.likedPosts.includes(req.params.id)) {
+    return next(new CustomError(`You've not yet liked this post`, 400));
+  }
+
+  // ADD POST TO USER'S LIKED POSTS LIST
+  profile.likedPosts = profile.likedPosts.filter(
+    (post) => post.toString() !== req.params.id
+  );
+  await profile.save();
+
+  // UPDATE POST LIKE COUNT
+  post.numLikes -= 1;
+  await post.save();
+
+  res.status(200).json({
+    status: 'success',
+    data: { post },
   });
 });
