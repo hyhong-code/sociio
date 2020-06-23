@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const FollowSchema = new mongoose.Schema({
+const InfluenceSchema = new mongoose.Schema({
   user: {
     type: mongoose.Schema.ObjectId,
     ref: 'User',
@@ -25,4 +25,4 @@ const FollowSchema = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model('Follow', FollowSchema);
+module.exports = mongoose.model('Influence', InfluenceSchema);

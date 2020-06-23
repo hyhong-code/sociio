@@ -3,71 +3,84 @@ const validator = require('validator');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
-const UserSchema = new mongoose.Schema({
-  handle: {
-    type: String,
-    trim: true,
-    lowercase: true,
-    unique: [true, 'A handle must be unique'],
-    minlength: [5, 'A handle is at least 5 characters long'],
-    maxlength: [15, 'A handle must be no more than 15 characters long'],
-    required: [true, 'A handle is required'],
-    match: [/[a-z0-9_-]+/, 'A handle must only contain a-z, 0-9, _, and -'],
-  },
-  email: {
-    type: String,
-    trim: true,
-    unique: [true, 'An email address must be unique'],
-    required: [true, 'An email address is required'],
-    validate: {
-      validator: (v) => validator.isEmail(v),
-      message: 'Please provide a valid email address',
+const UserSchema = new mongoose.Schema(
+  {
+    handle: {
+      type: String,
+      trim: true,
+      lowercase: true,
+      unique: [true, 'A handle must be unique'],
+      minlength: [5, 'A handle is at least 5 characters long'],
+      maxlength: [15, 'A handle must be no more than 15 characters long'],
+      required: [true, 'A handle is required'],
+      match: [/[a-z0-9_-]+/, 'A handle must only contain a-z, 0-9, _, and -'],
     },
-  },
-  name: {
-    type: String,
-    trim: true,
-    lowercase: true,
-    required: [true, 'A name is required'],
-    match: [/[a-zA-Z\s]+/, 'A name must only contain a-z, A-Z, and space'],
-  },
-  password: {
-    type: String,
-    required: [true, 'A password is required'],
-    minlength: [6, 'A password is at least 6 characters long'],
-    select: false,
-  },
-
-  confirmPassword: {
-    type: String,
-    required: [true, 'A password confirmation is required'],
-    validate: {
-      validator: function (v) {
-        return v === this.password;
+    email: {
+      type: String,
+      trim: true,
+      unique: [true, 'An email address must be unique'],
+      required: [true, 'An email address is required'],
+      validate: {
+        validator: (v) => validator.isEmail(v),
+        message: 'Please provide a valid email address',
       },
-      message: 'Passwords do not match',
+    },
+    name: {
+      type: String,
+      trim: true,
+      lowercase: true,
+      required: [true, 'A name is required'],
+      match: [/[a-zA-Z\s]+/, 'A name must only contain a-z, A-Z, and space'],
+    },
+    password: {
+      type: String,
+      required: [true, 'A password is required'],
+      minlength: [6, 'A password is at least 6 characters long'],
+      select: false,
+    },
+
+    confirmPassword: {
+      type: String,
+      required: [true, 'A password confirmation is required'],
+      validate: {
+        validator: function (v) {
+          return v === this.password;
+        },
+        message: 'Passwords do not match',
+      },
+    },
+    pwChangedAt: Date,
+    pwResetToken: String,
+    pwResetTokenExpires: Date,
+    profilePic: {
+      type: String,
+    },
+    role: {
+      type: String,
+      enum: ['user', 'admin'],
+      default: 'user',
+    },
+    createdAt: {
+      type: Date,
+      default: Date.now(),
+    },
+    isActive: {
+      type: Boolean,
+      default: true,
+      select: false,
     },
   },
-  pwChangedAt: Date,
-  pwResetToken: String,
-  pwResetTokenExpires: Date,
-  profilePic: {
-    type: String,
-  },
-  role: {
-    type: String,
-    enum: ['user', 'admin'],
-    default: 'user',
-  },
-  createdAt: {
-    type: Date,
-    default: Date.now(),
-  },
-  isActive: {
-    type: Boolean,
-    default: true,
-    select: false,
-  },
+  {
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true },
+  }
+);
+
+// VIRTUAL FIELD FOR GETTING FOLLOWERS AND FOLLOWED BY
+UserSchema.virtual('influence', {
+  ref: 'Influence',
+  localField: '_id',
+  foreignField: 'user',
 });
 
 // FILTER OUT INACTIVE USERS FROM QUERIES

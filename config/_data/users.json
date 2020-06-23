@@ -1,0 +1,50 @@
+[
+  {
+    "id": "5ef194154904fc7cb861e44d",
+    "handle": "text-user-1",
+    "email": "testuser1@gmail.com",
+    "name": "Test User",
+    "password": "666666",
+    "confirmPassword": "666666"
+  },
+  {
+    "id": "5ef194154904fc7cb861e44c",
+    "handle": "text-user-2",
+    "email": "testuser2@gmail.com",
+    "name": "Test User",
+    "password": "666666",
+    "confirmPassword": "666666"
+  },
+  {
+    "id": "5ef194154904fc7cb861e44b",
+    "handle": "text-user-3",
+    "email": "testuser3@gmail.com",
+    "name": "Test User",
+    "password": "666666",
+    "confirmPassword": "666666"
+  },
+  {
+    "id": "5ef194154904fc7cb861e44a",
+    "handle": "text-user-4",
+    "email": "testuser4@gmail.com",
+    "name": "Test User",
+    "password": "666666",
+    "confirmPassword": "666666"
+  },
+  {
+    "id": "5ef194154904fc7cb861e43d",
+    "handle": "text-user-5",
+    "email": "testuser5@gmail.com",
+    "name": "Test User",
+    "password": "666666",
+    "confirmPassword": "666666"
+  },
+  {
+    "id": "5ef194154904fc7cb861e42d",
+    "handle": "text-user-6",
+    "email": "testuser6@gmail.com",
+    "name": "Test User",
+    "password": "666666",
+    "confirmPassword": "666666"
+  }
+]

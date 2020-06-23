@@ -4,7 +4,6 @@ const User = require('../models/User');
 const filterBody = require('../utils/filterBody');
 const cookieTokenResponse = require('../utils/cookieTokenResponse');
 const jwt = require('jsonwebtoken');
-const { encodeXText } = require('nodemailer/lib/shared');
 
 // @DESC    SIGN UP USER
 // @ROUTE   POST /api/v1/auth/signup
@@ -126,7 +125,10 @@ exports.deleteMe = asyncHandler(async (req, res, next) => {
   user.isActive = false;
   user = await user.save({ validateBeforeSave: false });
 
-  cookieTokenResponse(user, 200, res);
+  res.status(204).json({
+    status: 'success',
+    data: null,
+  });
 });
 
 // AUTHENTICATE USER
@@ -151,8 +153,9 @@ exports.protect = asyncHandler(async (req, res, next) => {
   }
 
   // HANLE TEMPERED TOKEN
+  let decoded;
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    decoded = jwt.verify(token, process.env.JWT_SECRET);
   } catch (error) {
     return next(new CustomError(`Invalid token, please login again`, 401));
   }
