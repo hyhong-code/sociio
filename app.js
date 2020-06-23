@@ -5,6 +5,7 @@ const cookieParser = require('cookie-parser');
 
 const authRouter = require('./routes/authRouter');
 const userRouter = require('./routes/userRouter');
+const influenceRouter = require('./routes/influenceRouter');
 
 const Influence = require('./models/Influence');
 
@@ -19,6 +20,7 @@ app.use(cookieParser());
 // MOUNT ROUTERS
 app.use('/api/v1/auth', authRouter);
 app.use('/api/v1/users', userRouter);
+app.use('/api/v1/influences', influenceRouter);
 
 // GLOBAL ERROR HANDELR
 app.use('*', errorController);

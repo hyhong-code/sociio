@@ -21,7 +21,7 @@ const importData = async () => {
   try {
     // Model.create()......
     await User.create(userData);
-    await Influence.create(influenceData);
+    // await Influence.create(influenceData);
     console.log('Data imported...');
   } catch (error) {
     console.error(error);
@@ -34,7 +34,7 @@ const destroyData = async () => {
   try {
     // Model.deleteMany()......
     await User.deleteMany();
-    await Influence.deleteMany();
+    // await Influence.deleteMany();
     console.log('Data destroyed...');
   } catch (error) {
     console.error(error);

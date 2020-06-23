@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const validator = require('validator');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const Influence = require('./Influence');
 
 const UserSchema = new mongoose.Schema(
   {
@@ -88,6 +89,12 @@ UserSchema.pre('save', async function (next) {
   this.password = await bcrypt.hash(this.password, 12);
   this.confirmPassword = undefined;
   this.pwChangedAt = new Date(Date.now() - 5000);
+  next();
+});
+
+UserSchema.pre('save', async function (next) {
+  if (!this.isNew) return next();
+  await Influence.create({ user: this._id });
   next();
 });
 
