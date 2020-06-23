@@ -105,6 +105,30 @@ exports.updatePassword = asyncHandler(async (req, res, next) => {
   cookieTokenResponse(user, 200, res);
 });
 
+// @DESC    DELETE LOGGED IN USER
+// @ROUTE   DELETE /api/v1/auth/deleteMe
+// @ACCESS  PRIVATE
+exports.deleteMe = asyncHandler(async (req, res, next) => {
+  const { currentPassword } = req.body;
+
+  // HANDLE MISSING FIELDS
+  if (!currentPassword) {
+    return next(new CustomError(`Field currentPassword,is required`, 400));
+  }
+
+  // HANDLE INCORRECT PASSWORD
+  let user = await User.findById(req.user.id).select('+password +isActive');
+  if (!(await user.verifyPassword(currentPassword))) {
+    return next(new CustomError(`Password incorrect`, 401));
+  }
+
+  // MAKE USER INACTIVE
+  user.isActive = false;
+  user = await user.save({ validateBeforeSave: false });
+
+  cookieTokenResponse(user, 200, res);
+});
+
 // AUTHENTICATE USER
 exports.protect = asyncHandler(async (req, res, next) => {
   let token;
@@ -126,7 +150,12 @@ exports.protect = asyncHandler(async (req, res, next) => {
     return next(new CustomError(`No token, please login`, 401));
   }
 
-  const decoded = jwt.verify(token, process.env.JWT_SECRET);
+  // HANLE TEMPERED TOKEN
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+  } catch (error) {
+    return next(new CustomError(`Invalid token, please login again`, 401));
+  }
 
   // HANDLE USER DELETED
   const user = await User.findById(decoded.id);
@@ -137,7 +166,7 @@ exports.protect = asyncHandler(async (req, res, next) => {
   // HANDLE USER PASSWORD CHANGED AFTER TOKEN ISSUED
   if (decoded.iat < user.pwChangedAt.getTime() / 1000) {
     return next(
-      new CustomError(`Password chaned recently, please login again`, 400)
+      new CustomError(`Password chaned recently, please login again`, 401)
     );
   }
 

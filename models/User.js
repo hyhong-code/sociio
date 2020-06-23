@@ -63,6 +63,17 @@ const UserSchema = new mongoose.Schema({
     type: Date,
     default: Date.now(),
   },
+  isActive: {
+    type: Boolean,
+    default: true,
+    select: false,
+  },
+});
+
+// FILTER OUT INACTIVE USERS FROM QUERIES
+UserSchema.pre(/^find/, function (next) {
+  this.find({ isActive: { $ne: false } });
+  next();
 });
 
 // HASH USER PASSWORD
