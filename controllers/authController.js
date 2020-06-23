@@ -50,31 +50,6 @@ exports.logIn = asyncHandler(async (req, res, next) => {
   cookieTokenResponse(user, 200, res);
 });
 
-// @DESC    LOAD LOGGED IN USER
-// @ROUTE   GET /api/v1/auth/loadme
-// @ACCESS  PRIVATE
-// exports.loadMe = asyncHandler(async (req, res, next) => {
-//   res.status(200).json({
-//     status: 'success',
-//     data: { user: req.user },
-//   });
-// });
-
-// @DESC    UPDATE LOGGED IN USER INFO
-// @ROUTE   PATCH /api/v1/auth/updateinfo
-// @ACCESS  PRIVATE
-exports.updateMe = asyncHandler(async (req, res, next) => {
-  const filteredBody = filterBody(req.body, 'handle', 'name', 'email');
-  const user = await User.findByIdAndUpdate(req.user.id, filteredBody, {
-    new: true,
-    runValidators: true,
-  });
-  res.status(200).json({
-    status: 'success',
-    data: { user },
-  });
-});
-
 // @DESC    UPDATE LOGGED IN USER PASSWORD
 // @ROUTE   PATCH /api/v1/auth/updatepassword
 // @ACCESS  PRIVATE
@@ -117,14 +92,12 @@ exports.deleteMe = asyncHandler(async (req, res, next) => {
   }
 
   // HANDLE INCORRECT PASSWORD
-  let user = await User.findById(req.user.id).select('+password +isActive');
+  const user = await User.findById(req.user.id).select('+password +isActive');
   if (!(await user.verifyPassword(currentPassword))) {
     return next(new CustomError(`Password incorrect`, 401));
   }
 
-  // MAKE USER INACTIVE
-  user.isActive = false;
-  user = await user.save({ validateBeforeSave: false });
+  await user.remove();
 
   res.status(204).json({
     status: 'success',

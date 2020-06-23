@@ -4,6 +4,7 @@ const connectDB = require('./db');
 // Import Model......
 const User = require('../models/User');
 const Influence = require('../models/Influence');
+const Profile = require('../models/Profile');
 
 // Connect to DB
 connectDB();
@@ -35,6 +36,7 @@ const destroyData = async () => {
     // Model.deleteMany()......
     await User.deleteMany();
     await Influence.deleteMany();
+    await Profile.deleteMany();
     console.log('Data destroyed...');
   } catch (error) {
     console.error(error);
