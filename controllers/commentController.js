@@ -3,6 +3,7 @@ const asyncHandler = require('../utils/asyncHandler');
 const CustomError = require('../utils/customError');
 const filterBody = require('../utils/filterBody');
 const Post = require('../models/Post');
+const QueryOptions = require('../utils/queryOptions');
 
 // @DESC    CREATE A COMMENT
 // @ROUTE   POST /api/v1/posts/:postId/comments
@@ -21,6 +22,26 @@ exports.createComment = asyncHandler(async (req, res, next) => {
   res.status(201).json({
     status: 'success',
     data: { comment },
+  });
+});
+
+// @DESC    GET COMMENTS OF A POST
+// @ROUTE   GET /api/v1/posts/:postId/comments
+// @ACCESS  PRIVATE
+exports.getComments = asyncHandler(async (req, res, next) => {
+  // HANDLE POST NOT EXISTS
+  const post = await Post.findById(req.params.postId);
+  if (!post) {
+    return next(new CustomError(`No post found with id ${req.params.postId}`));
+  }
+
+  const comments = await Comment.find({ post: req.params.postId });
+
+  // CREATE COMMENT
+  res.status(201).json({
+    status: 'success',
+    result: comments.length,
+    data: { comments },
   });
 });
 

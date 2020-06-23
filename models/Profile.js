@@ -45,14 +45,26 @@ ProfileSchema.virtual('influence', {
   justOne: true,
 });
 
+ProfileSchema.virtual('posts', {
+  ref: 'Post',
+  localField: 'user',
+  foreignField: 'postedBy',
+  justOne: false,
+});
+
 ProfileSchema.pre(/^find/, function (next) {
   this.populate({
     path: 'influence',
     select: '-__v',
-  }).populate({
-    path: 'user',
-    select: '-__v',
-  });
+  })
+    .populate({
+      path: 'user',
+      select: '-__v',
+    })
+    .populate({
+      path: 'posts',
+      select: '-__v',
+    });
   next();
 });
 
