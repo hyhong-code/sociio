@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
+const bcrypt = require('bcryptjs');
+const jwt = require('mongoose');
 
 const UserSchema = new mongoose.Schema({
   handle: {
@@ -43,6 +45,9 @@ const UserSchema = new mongoose.Schema({
       message: 'Passwords do not match',
     },
   },
+  pwChangedAt: Date,
+  pwResetToken: String,
+  pwResetTokenExpires: Date,
   profilePic: {
     type: String,
   },
@@ -56,5 +61,26 @@ const UserSchema = new mongoose.Schema({
     default: Date.now(),
   },
 });
+
+// HASH USER PASSWORD
+UserSchema.pre('save', async function (next) {
+  if (!this.isModified('password')) return next();
+  this.password = await bcrypt.hash(this.password, 12);
+  this.confirmPassword = undefined;
+  this.pwChangedAt = new Date(Date.now() - 5000);
+  next();
+});
+
+// VERIFY USER PASSWORD
+UserSchema.methods.verifyPassword = async function (plain) {
+  return await bcrypt.compare(plain, this.password);
+};
+
+// GENERATE JWT TOKEN
+UserSchema.methods.genJwtToken = function () {
+  return jwt.sign({ id: this_id }, process.env.JWT_SECRET, {
+    expiresIn: process.env.JWT_EXPIRES,
+  });
+};
 
 module.exports = mongoose.model('User', UserSchema);
