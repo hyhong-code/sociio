@@ -4,6 +4,8 @@ import Navbar from './layouts/Navbar';
 import Landing from './pages/Landing';
 import Home from './pages/Home';
 import Comment from './pages/Comment';
+import Signin from './pages/Signin';
+import Signup from './pages/Signup';
 import './App.css';
 
 const App = () => {
@@ -14,7 +16,9 @@ const App = () => {
         <Switch>
           {/* <Landing /> */}
           {/* <Home /> */}
-          <Comment />
+          {/* <Comment /> */}
+          {/* <Signin /> */}
+          <Signup />
         </Switch>
       </Fragment>
     </BrowserRouter>
