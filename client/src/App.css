@@ -9788,6 +9788,7 @@ textarea {
 #comment {
   padding-top: 5rem;
   padding-bottom: 6rem;
+  min-height: 100vh;
 }
 #posts textarea,
 #comment textarea {
