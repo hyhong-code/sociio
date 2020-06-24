@@ -5,7 +5,7 @@ import { signUp } from '../actions/authActions';
 import { setAlert } from '../actions/alertActions';
 import PropTypes from 'prop-types';
 
-const Signup = ({ signUp, setAlert }) => {
+const Signup = ({ signUp, setAlert, history }) => {
   const [formData, setFormData] = useState({
     name: '',
     handle: '',
@@ -25,7 +25,7 @@ const Signup = ({ signUp, setAlert }) => {
     if (password !== confirmPassword) {
       setAlert(`Passwords do not match`);
     } else {
-      await signUp(formData);
+      await signUp(formData, history);
     }
   };
 

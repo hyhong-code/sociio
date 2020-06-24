@@ -22,6 +22,7 @@ const App = () => {
           <Route exact path="/comment" component={Comment} />
           <Route exact path="/signin" component={Signin} />
           <Route exact path="/signup" component={Signup} />
+          <Route exact path="/profile/:id" component={Profile} />
           <Profile />
         </Switch>
       </Fragment>
