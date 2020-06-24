@@ -1,6 +1,6 @@
 import React from 'react';
-import PostForm from '../components/PostForm';
-import Post from '../components/Post';
+import PostForm from '../components/post/PostForm';
+import Post from '../components/post/Post';
 
 const Home = () => {
   return (

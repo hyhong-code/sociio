@@ -1,7 +1,7 @@
 import React from 'react';
-import CommentPost from '../components/CommentPost';
-import CommentForm from '../components/CommentForm';
-import CommentCard from '../components/CommentCard';
+import CommentPost from '../components/comment/CommentPost';
+import CommentForm from '../components/comment/CommentForm';
+import CommentCard from '../components/comment/CommentCard';
 
 const Comment = () => {
   return (
