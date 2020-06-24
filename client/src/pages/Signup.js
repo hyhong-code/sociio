@@ -1,15 +1,37 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { signUp } from '../actions/authActions';
+import PropTypes from 'prop-types';
 
-const Signup = () => {
+const Signup = ({ signUp }) => {
+  const [formData, setFormData] = useState({
+    name: '',
+    handle: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+  });
+
+  const { name, handle, email, password, confirmPassword } = formData;
+
+  const handleChange = (evt) => {
+    setFormData({ ...formData, [evt.target.name]: [evt.target.value] });
+  };
+
+  const handleSubmit = (evt) => {
+    evt.preventDefault();
+    signUp(formData);
+  };
+
   return (
     <section id="signup" className="bg-light d-flex">
       <div className="container align-self-center">
         <div className="row">
           <div className="col-10 offset-1 col-md-6 offset-md-3">
             <form
-              action=""
               className="bg-dark text-light px-4 px-md-5 py-5 rounded"
+              onSubmit={handleSubmit}
             >
               <h1 className="my-4 display-4">
                 SIGN UP <i className="fas fa-user-plus"></i>
@@ -19,6 +41,9 @@ const Signup = () => {
                   type="text"
                   className="form-control"
                   placeholder="Name"
+                  name="name"
+                  onChange={handleChange}
+                  value={name}
                 />
               </div>
               <div className="form-group">
@@ -26,6 +51,9 @@ const Signup = () => {
                   type="text"
                   className="form-control"
                   placeholder="Handle"
+                  name="handle"
+                  onChange={handleChange}
+                  value={handle}
                 />
               </div>
 
@@ -34,6 +62,9 @@ const Signup = () => {
                   type="email"
                   className="form-control"
                   placeholder="Email"
+                  name="email"
+                  onChange={handleChange}
+                  value={email}
                 />
               </div>
               <div className="form-group">
@@ -41,6 +72,9 @@ const Signup = () => {
                   type="password"
                   className="form-control"
                   placeholder="Password"
+                  name="password"
+                  onChange={handleChange}
+                  value={password}
                 />
               </div>
               <div className="form-group">
@@ -48,10 +82,13 @@ const Signup = () => {
                   type="password"
                   className="form-control"
                   placeholder="Confirm Password"
+                  name="confirmPassword"
+                  onChange={handleChange}
+                  value={confirmPassword}
                 />
               </div>
               <input
-                type="text"
+                type="submit"
                 className="btn btn-secondary d-block mx-auto my-4"
                 value="Join Now"
               />
@@ -67,4 +104,8 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+Signup.propTypes = {
+  signUp: PropTypes.func.isRequired,
+};
+
+export default connect(null, { signUp })(Signup);
