@@ -1,4 +1,5 @@
 import React from 'react';
+import defaultImg from '../img/default.jpeg';
 
 const CommentCard = () => {
   return (
@@ -7,7 +8,7 @@ const CommentCard = () => {
         <div className="d-flex align-items-center">
           <a href="" className="d-flex align-items-center">
             <img
-              src="./img/default.jpeg"
+              src={defaultImg}
               className="float-left rounded-circle d-block mr-3"
               width="50"
             />
