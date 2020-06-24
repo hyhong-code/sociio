@@ -1,41 +1,13 @@
 import React from 'react';
-import defaultImg from '../img/default.jpeg';
 
-const Post = () => {
-  const notLogedInPostActions = (
-    <div>
-      <span
-        className="d-inline-block"
-        tabindex="0"
-        data-toggle="tooltip"
-        title="Signin to like"
-      >
-        <a href="#" className="btn btn-outline-primary px-4 mr-1 disabled">
-          Like
-          <span className="ml-1 badge badge-secondary">5</span>
-        </a>
-      </span>
-      <span
-        className="d-inline-block"
-        tabindex="0"
-        data-toggle="tooltip"
-        title="Signin to comment"
-      >
-        <a href="#" className="btn btn-outline-secondary disabled">
-          Comment
-          <span className="ml-1 badge badge-primary">3</span>
-        </a>
-      </span>
-    </div>
-  );
-
+const CommentPost = () => {
   return (
     <div className="card border-dark mb-3">
       <div className="card-body">
         <div className="d-flex align-items-center">
           <a href="" className="d-flex align-items-center">
             <img
-              src={defaultImg}
+              src="./img/default.jpeg"
               className="float-left rounded-circle d-block mr-3"
               width="50"
             />
@@ -60,19 +32,13 @@ const Post = () => {
             X
           </span>
         </div>
-
-        <div className="d-flex">
-          <a href="#" className="btn btn-outline-primary px-4 mr-1">
-            Like <span className="ml-1 badge badge-secondary">5</span>
-          </a>
-          <a href="comment.html" className="btn btn-outline-secondary">
-            Comment
-            <span className="ml-1 badge badge-primary">3</span>
-          </a>
+        <div>
+          <span className="ml-1 badge badge-secondary px-2 py-1">5 likes</span>
+          <span className="ml-1 badge badge-primary px-2 py-1">3 comments</span>
         </div>
       </div>
     </div>
   );
 };
 
-export default Post;
+export default CommentPost;

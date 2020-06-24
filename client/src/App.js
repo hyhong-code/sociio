@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Navbar from './layouts/Navbar';
 import Landing from './pages/Landing';
 import Home from './pages/Home';
+import Comment from './pages/Comment';
 import './App.css';
 
 const App = () => {
@@ -12,7 +13,8 @@ const App = () => {
         <Navbar />
         <Switch>
           {/* <Landing /> */}
-          <Home />
+          {/* <Home /> */}
+          <Comment />
         </Switch>
       </Fragment>
     </BrowserRouter>
