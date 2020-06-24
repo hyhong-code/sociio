@@ -1,57 +1,58 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
   return (
-    <nav className="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+    <nav className="navbar navbar-dark bg-dark fixed-top">
       <div className="container">
-        <a href="" className="navbar-brand">
+        <Link to="/" className="navbar-brand">
           sociio
-        </a>
-        <button
-          className="navbar-toggler"
-          data-toggle="collapse"
-          data-target="#nb"
-        >
-          <span className="navbar-toggler-icon"></span>
-        </button>
-        <div className="collapse navbar-collapse" id="nb">
-          <ul className="navbar-nav">
-            <li className="nav-item justify-content-center d-flex">
-              <a href="index.html" className="nav-link active">
-                <i className="fas fa-home mr-2"></i>Home
-              </a>
+        </Link>
+        <div className="d-flex justify-content-between flex-grow-1">
+          <ul className="navbar-nav flex-row">
+            <li className="nav-item mr-2">
+              <Link to="/" className="nav-link active">
+                <i className="fas fa-home mr-1"></i>
+                <span className="d-none d-md-inline">Home</span>
+              </Link>
             </li>
-            <li className="nav-item justify-content-center d-flex">
-              <a href="posts.html" className="nav-link">
-                <i className="fas fa-fire mr-2"></i>Trending
-              </a>
+            <li className="nav-item mr-2">
+              <Link to="/home" className="nav-link">
+                <i className="fas fa-fire mr-1"></i>
+                <span className="d-none d-md-inline">Trending</span>
+              </Link>
             </li>
-            <li className="nav-item justify-content-center d-flex">
-              <a href="posts.html" className="nav-link">
-                <i className="fas fa-users mr-2"></i>For you
-              </a>
+            <li className="nav-item">
+              <Link to="/Home" className="nav-link">
+                <i className="fas fa-users mr-1"></i>
+                <span className="d-none d-md-inline">For you</span>
+              </Link>
             </li>
           </ul>
-          <ul className="navbar-nav ml-auto">
-            <li className="nav-item justify-content-center d-flex">
-              <a href="profile.html" className="nav-link">
-                <i className="fas fa-id-badge mr-2"></i>Profile
-              </a>
+          <ul className="navbar-nav ml-auto flex-row">
+            <li className="nav-item mr-2">
+              <Link to="/profile" className="nav-link">
+                <i className="fas fa-id-badge mr-1"></i>
+                <span className="d-none d-md-inline">Profile</span>
+              </Link>
             </li>
-            <li className="nav-item justify-content-center d-flex">
-              <a href="signin.html" className="nav-link">
-                <i className="fas fa-key mr-2"></i>Signin
-              </a>
+            <li className="nav-item mr-2">
+              <Link to="/signin" className="nav-link">
+                <i className="fas fa-key mr-1"></i>
+                <span className="d-none d-md-inline">Signin</span>
+              </Link>
             </li>
-            <li className="nav-item justify-content-center d-flex">
-              <a href="signup.html" className="nav-link">
-                <i className="fas fa-user-plus mr-2"></i>Signup
-              </a>
+            <li className="nav-item mr-2">
+              <Link to="/signup" className="nav-link">
+                <i className="fas fa-user-plus mr-1"></i>
+                <span className="d-none d-md-inline">Signup</span>
+              </Link>
             </li>
-            <li className="nav-item justify-content-center d-flex">
-              <a href="index.html" className="nav-link">
-                <i className="fas fa-sign-out-alt mr-2"></i> Signout
-              </a>
+            <li className="nav-item">
+              <Link to="/" className="nav-link">
+                <i className="fas fa-sign-out-alt mr-1"></i>
+                <span className="d-none d-md-inline">Signout</span>
+              </Link>
             </li>
           </ul>
         </div>

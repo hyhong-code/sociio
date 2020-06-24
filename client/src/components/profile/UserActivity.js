@@ -1,16 +1,17 @@
 import React from 'react';
+import UserCommentedList from './UserCommentedList';
 import UserPostsList from './UserPostsList';
 import UserLikedList from './UserLikedList';
-import UserCommentedList from './UserCommentedList';
 
 const UserActivity = () => {
   return (
-    <div class="col-md-8">
-      <div class="accordion" id="accordion">
-        <UserPostsList />
-        <UserLikedList />
-        <UserCommentedList/>
+    <div className="col-md-8">
+      <div className="pb-3 mb-1 border-bottom border-dark d-flex justify-content-around">
+        <button className="btn btn-outline-primary">Commented</button>
+        <button className="btn btn-outline-secondary">Liked</button>
+        <button className="btn btn-outline-dark">Shared</button>
       </div>
+      <UserCommentedList />
     </div>
   );
 };

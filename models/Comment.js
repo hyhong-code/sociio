@@ -29,6 +29,9 @@ CommentSchema.pre(/^find/, function (next) {
   this.populate({
     path: 'commentedBy',
     select: 'name handle profilePic',
+  }).populate({
+    path: 'post',
+    select: '-__v',
   });
   next();
 });

@@ -3,7 +3,7 @@ import React from 'react';
 const Alert = () => {
   const errorAlertIcon = <i class="fas fa-exclamation mr-2"></i>;
   return (
-    <div id="alert" className="card bg-success text-light">
+    <div className="custom-alert card bg-success text-light">
       <div className="card-body p-3">
         <div className="card-subtitle">
           <i className="far fa-check-circle mr-2"></i>Success

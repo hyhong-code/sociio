@@ -9710,6 +9710,14 @@ textarea {
   resize: none;
 }
 
+.delete-post {
+  cursor: pointer;
+  user-select: none;
+}
+.delete-post:hover {
+  transform: scale(1.1);
+}
+
 .overlay {
   position: absolute;
   left: 0;
@@ -9736,7 +9744,7 @@ textarea {
 
 #home {
   position: relative;
-  height: 100vh;
+  min-height: 100vh;
   background-image: url('./img/landing.jpeg');
   background-size: cover;
   background-position: center;
@@ -9780,7 +9788,6 @@ textarea {
 #comment {
   padding-top: 5rem;
   padding-bottom: 6rem;
-  min-height: 100vh;
 }
 #posts textarea,
 #comment textarea {
@@ -9824,6 +9831,10 @@ textarea {
   padding-top: 5rem;
   min-height: 100vh;
 }
+#profile .profile-activities {
+  min-height: 50rem;
+  overflow: scroll;
+}
 #profile div.col-md-4.mb-4 {
   border: 1px solid #827397;
 }
@@ -9851,7 +9862,7 @@ textarea {
   }
 }
 
-#alert {
+.custom-alert {
   position: absolute;
   right: 0;
   top: 0;
