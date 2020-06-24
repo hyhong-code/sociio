@@ -58,6 +58,7 @@ const handleJWTExpiredError = () =>
   new CustomError(`Token expired, please login again`, 401);
 
 const errorController = (err, req, res, next) => {
+  console.error(err.message);
   err.statusCode = err.statusCode || 500;
   err.status = err.status || 'error';
 
@@ -66,6 +67,7 @@ const errorController = (err, req, res, next) => {
   } else if (process.env.NODE_ENV === 'production') {
     let error = { ...err };
     error.name = err.name; // err.name is enumerable field
+    error.message = err.message;
     if (error.name === 'CastError') error = handleCastErrorDB(error);
     if (error.code === 11000) error = handleDuplicateKeyDB(error);
     if (error.errors) error = handleValidationErrorDB(error);

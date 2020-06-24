@@ -1,14 +1,33 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { signIn } from '../actions/authActions';
+import PropTypes from 'prop-types';
 
-const Signin = () => {
+const Signin = ({ signIn, history }) => {
+  const [formData, setFormData] = useState({
+    email: '',
+    password: '',
+  });
+
+  const handleChange = (evt) => {
+    setFormData({ ...formData, [evt.target.name]: evt.target.value });
+  };
+
+  const handleSubmit = (evt) => {
+    evt.preventDefault();
+    signIn(formData, history);
+  };
+
+  const { email, password } = formData;
+
   return (
     <section id="signin" className="bg-light d-flex">
       <div className="container align-self-center">
         <div className="row">
           <div className="col-10 offset-1 col-md-6 offset-md-3">
             <form
-              action=""
+              onSubmit={handleSubmit}
               className="bg-dark text-light px-4 px-md-5 py-5 rounded"
             >
               <h1 className="my-4 display-4">
@@ -19,6 +38,9 @@ const Signin = () => {
                   type="email"
                   className="form-control"
                   placeholder="Email"
+                  value={email}
+                  name="email"
+                  onChange={handleChange}
                 />
               </div>
               <div className="form-group">
@@ -26,10 +48,13 @@ const Signin = () => {
                   type="password"
                   className="form-control"
                   placeholder="Password"
+                  value={password}
+                  name="password"
+                  onChange={handleChange}
                 />
               </div>
               <input
-                type="text"
+                type="submit"
                 className="btn btn-secondary d-block mx-auto my-4"
                 value="Welcome Back"
               />
@@ -45,4 +70,8 @@ const Signin = () => {
   );
 };
 
-export default Signin;
+Signin.propTypes = {
+  signIn: PropTypes.func.isRequired,
+};
+
+export default connect(null, { signIn })(Signin);
