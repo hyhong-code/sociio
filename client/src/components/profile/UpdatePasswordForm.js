@@ -28,16 +28,13 @@ const UpdatePasswordForm = () => {
           />
         </div>
         <div className="d-flex justify-content-center">
-        <a href="" className="btn btn-secondary px-3 mr-2">
-          Back
-        </a>
-        <input
-          type="submit"
-          className="btn btn-warning text-parimary"
-          value="Reset"
-        />
+          <button className="btn btn-secondary px-3 mr-2">Back</button>
+          <input
+            type="submit"
+            className="btn btn-warning text-parimary"
+            value="Reset"
+          />
         </div>
-
       </form>
     </div>
   );

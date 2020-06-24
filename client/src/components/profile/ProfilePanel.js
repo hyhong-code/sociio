@@ -36,12 +36,8 @@ const ProfilePanel = () => {
         <UploadPhotoForm />
       </form>
       <div>
-        <a href="" className="btn btn-primary px-4 mr-1">
-          Edit Profile
-        </a>
-        <a href="" className="btn btn-danger">
-          Delete Account
-        </a>
+        <button className="btn btn-primary px-4 mr-1">Edit Profile</button>
+        <button className="btn btn-danger">Delete Account</button>
       </div>
     </div>
   );

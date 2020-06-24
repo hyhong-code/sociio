@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import CommentPost from '../components/comment/CommentPost';
 import CommentForm from '../components/comment/CommentForm';
 import CommentCard from '../components/comment/CommentCard';
@@ -12,9 +13,9 @@ const Comment = () => {
         </h1>
         <div class="row">
           <div class="col-10 offset-1 col-md-8 offset-md-2">
-            <a href="posts.html" class="btn btn-secondary">
+            <Link to="/home" class="btn btn-secondary">
               Back to posts
-            </a>
+            </Link>
             <div class="py-3 mt-3">
               <CommentPost />
               <CommentForm />

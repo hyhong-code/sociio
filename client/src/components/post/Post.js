@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import defaultImg from '../../img/default.jpeg';
 
 const Post = () => {
@@ -10,10 +11,10 @@ const Post = () => {
         data-toggle="tooltip"
         title="Signin to like"
       >
-        <a href="#" className="btn btn-outline-primary px-4 mr-1 disabled">
+        <button className="btn btn-outline-primary px-4 mr-1 disabled">
           Like
           <span className="ml-1 badge badge-secondary">5</span>
-        </a>
+        </button>
       </span>
       <span
         className="d-inline-block"
@@ -21,10 +22,10 @@ const Post = () => {
         data-toggle="tooltip"
         title="Signin to comment"
       >
-        <a href="#" className="btn btn-outline-secondary disabled">
+        <Link to="/comment" className="btn btn-outline-secondary disabled">
           Comment
           <span className="ml-1 badge badge-primary">3</span>
-        </a>
+        </Link>
       </span>
     </div>
   );
@@ -33,7 +34,7 @@ const Post = () => {
     <div className="card border-dark mb-3">
       <div className="card-body">
         <div className="d-flex align-items-center">
-          <a href="" className="d-flex align-items-center">
+          <Link to="/profile" className="d-flex align-items-center">
             <img
               src={defaultImg}
               className="float-left rounded-circle d-block mr-3"
@@ -43,7 +44,7 @@ const Post = () => {
               <h5 className="card-title">John Doe</h5>
               <h6 className="card-subtitle mb-2 text-muted">@john-doe</h6>
             </div>
-          </a>
+          </Link>
           <p className="text-muted ml-auto">
             <i className="fas fa-location-arrow"></i> Seattle
           </p>
@@ -62,13 +63,13 @@ const Post = () => {
         </div>
 
         <div className="d-flex">
-          <a href="#" className="btn btn-outline-primary px-4 mr-1">
+          <button className="btn btn-outline-primary px-4 mr-1">
             Like <span className="ml-1 badge badge-secondary">5</span>
-          </a>
-          <a href="comment.html" className="btn btn-outline-secondary">
+          </button>
+          <Link to="/comment" className="btn btn-outline-secondary">
             Comment
             <span className="ml-1 badge badge-primary">3</span>
-          </a>
+          </Link>
         </div>
       </div>
     </div>

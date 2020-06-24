@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import defaultImg from '../../img/default.jpeg';
 
 const CommentPost = () => {
@@ -6,7 +7,7 @@ const CommentPost = () => {
     <div className="card border-dark mb-3">
       <div className="card-body">
         <div className="d-flex align-items-center">
-          <a href="" className="d-flex align-items-center">
+          <Link to="profile" className="d-flex align-items-center">
             <img
               src={defaultImg}
               className="float-left rounded-circle d-block mr-3"
@@ -16,7 +17,7 @@ const CommentPost = () => {
               <h5 className="card-title">John Doe</h5>
               <h6 className="card-subtitle mb-2 text-muted">@john-doe</h6>
             </div>
-          </a>
+          </Link>
           <p className="text-muted ml-auto">
             <i className="fas fa-location-arrow"></i> Seattle
           </p>

@@ -1,12 +1,13 @@
 import React from 'react';
 import defaultImg from '../../img/default.jpeg';
+import { Link } from 'react-router-dom';
 
 const CommentCard = () => {
   return (
     <div className="card border-primary mb-3">
       <div className="card-body">
         <div className="d-flex align-items-center">
-          <a href="" className="d-flex align-items-center">
+          <Link to="/profile" className="d-flex align-items-center">
             <img
               src={defaultImg}
               className="float-left rounded-circle d-block mr-3"
@@ -16,7 +17,7 @@ const CommentCard = () => {
               <h5 className="card-title">John Doe</h5>
               <h6 className="card-subtitle mb-2 text-muted">@john-doe</h6>
             </div>
-          </a>
+          </Link>
         </div>
         <hr className="mt-0 mb-1" />
         <p className="card-text">

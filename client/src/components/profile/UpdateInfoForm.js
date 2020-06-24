@@ -22,9 +22,7 @@ const UpdateInfoForm = () => {
         </div>
         <small className="d-block mb-3">Your address wont't be shared.</small>
         <div className="d-flex justify-content-center">
-          <a href="" className="btn btn-secondary px-3 mr-2">
-            Back
-          </a>
+          <button className="btn btn-secondary px-3 mr-2">Back</button>
           <input type="submit" className="btn btn-info" value="Update" />
         </div>
       </form>

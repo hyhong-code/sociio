@@ -17,9 +17,7 @@ const DeleteAccountForm = () => {
           Your account won't be recovered.
         </small>
         <div className="d-flex justify-content-center">
-          <a href="" className="btn btn-success px-3 mr-2">
-            Back
-          </a>
+          <button className="btn btn-success px-3 mr-2">Back</button>
           <input
             type="submit"
             className="btn btn-danger"
