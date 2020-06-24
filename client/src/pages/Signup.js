@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { signUp } from '../actions/authActions';
+import { setAlert } from '../actions/alertActions';
 import PropTypes from 'prop-types';
 
-const Signup = ({ signUp }) => {
+const Signup = ({ signUp, setAlert }) => {
   const [formData, setFormData] = useState({
     name: '',
     handle: '',
@@ -16,12 +17,16 @@ const Signup = ({ signUp }) => {
   const { name, handle, email, password, confirmPassword } = formData;
 
   const handleChange = (evt) => {
-    setFormData({ ...formData, [evt.target.name]: [evt.target.value] });
+    setFormData({ ...formData, [evt.target.name]: evt.target.value });
   };
 
-  const handleSubmit = (evt) => {
+  const handleSubmit = async (evt) => {
     evt.preventDefault();
-    signUp(formData);
+    if (password !== confirmPassword) {
+      setAlert(`Passwords do not match`);
+    } else {
+      await signUp(formData);
+    }
   };
 
   return (
@@ -106,6 +111,7 @@ const Signup = ({ signUp }) => {
 
 Signup.propTypes = {
   signUp: PropTypes.func.isRequired,
+  setAlert: PropTypes.func.isRequired,
 };
 
-export default connect(null, { signUp })(Signup);
+export default connect(null, { signUp, setAlert })(Signup);

@@ -9873,4 +9873,12 @@ textarea {
   margin-top: 5rem;
   font-size: 0.8rem;
   opacity: 0.9;
+  max-height: 20rem;
+  overflow: scroll;
+}
+
+@media (max-width: 768px) {
+  .custom-alert {
+    max-height: 10rem;
+  }
 }

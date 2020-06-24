@@ -7,6 +7,7 @@ import Comment from './pages/Comment';
 import Signin from './pages/Signin';
 import Signup from './pages/Signup';
 import Profile from './pages/Profile';
+import Alert from './components/Alert';
 import './App.css';
 
 const App = () => {
@@ -14,6 +15,7 @@ const App = () => {
     <BrowserRouter>
       <Fragment>
         <Navbar />
+        <Alert />
         <Switch>
           <Route exact path="/" component={Landing} />
           <Route exact path="/home" component={Home} />

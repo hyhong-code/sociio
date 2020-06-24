@@ -3,37 +3,36 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 const Alert = ({ alert }) => {
-  const errorDisplay = (
+  const successDisplay = (
     <div className="card-subtitle">
       <i className="far fa-check-circle mr-2"></i> Success
     </div>
   );
 
-  const successDisplay = (
+  const errorDisplay = (
     <div className="card-subtitle">
       <i class="fas fa-exclamation mr-2"></i> Error
     </div>
   );
 
   return (
-    alert.length &&
-    alert.map((a) => (
-      <div
-        key={a.id}
-        className={`${
-          a.isError ? 'bg-danger' : 'bg-success'
-        } custom-alert card text-light`}
-      >
-        <div className="card-body p-3">
-          {a.isError ? errorDisplay : successDisplay}
-          <hr className="my-1" />
-          <div className="card-text">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat,
-            qui?
+    <div className="div custom-alert p-1">
+      {alert.length !== 0 &&
+        alert.map((a) => (
+          <div
+            key={a.id}
+            className={`${
+              a.isError ? 'bg-danger' : 'bg-success'
+            } card text-light mb-1`}
+          >
+            <div className="card-body p-3">
+              {a.isError ? errorDisplay : successDisplay}
+              <hr className="my-1" />
+              <div className="card-text">{a.msg}</div>
+            </div>
           </div>
-        </div>
-      </div>
-    ))
+        ))}
+    </div>
   );
 };
 

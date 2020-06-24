@@ -15,7 +15,10 @@ const UserSchema = new mongoose.Schema(
       minlength: [5, 'A handle is at least 5 characters long'],
       maxlength: [15, 'A handle must be no more than 15 characters long'],
       required: [true, 'A handle is required'],
-      match: [/[a-z0-9_-]+/, 'A handle must only contain a-z, 0-9, _, and -'],
+      match: [
+        /^[a-z0-9_-]+$/,
+        'A handle must only contain " a-z ", " 0-9 ", " _ ", and " - "',
+      ],
     },
     email: {
       type: String,

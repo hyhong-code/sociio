@@ -6,7 +6,7 @@ const alertReducer = (state = INITIAL_STATE, action) => {
   const { type, payload } = action;
   switch (type) {
     case SET_ALERT:
-      return [...state, payload];
+      return [payload, ...state];
     case CANCEL_ALERT:
       return state.filter((alert) => alert.id !== payload);
     default:
