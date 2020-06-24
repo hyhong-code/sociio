@@ -4,11 +4,17 @@ const {
   getProfile,
   getMyProfile,
   updateMyProfile,
+  updateMyProfilePic,
 } = require('../controllers/profileController');
 
 const router = express.Router({ mergeParams: true });
 
 router.route('/').get(getProfile);
-router.route('/me').get(protect, getMyProfile).patch(protect, updateMyProfile);
+
+router.use(protect);
+
+router.route('/profilepic').patch(protect, updateMyProfilePic);
+
+router.route('/me').get(getMyProfile).patch(updateMyProfile);
 
 module.exports = router;

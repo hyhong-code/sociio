@@ -3,6 +3,7 @@ const User = require('../models/User');
 const asyncHandler = require('../utils/asyncHandler');
 const CustomError = require('../utils/customError');
 const filterBody = require('../utils/filterBody');
+const sharp = require('sharp');
 
 // @DESC    GET PROFILE OF A USER
 // @ROUTE   PATCH /api/v1/users/:userId/profile
@@ -54,6 +55,44 @@ exports.updateMyProfile = asyncHandler(async (req, res, next) => {
     { new: true, runValidators: true }
   );
 
+  res.status(200).json({
+    status: 'success',
+    data: { profile },
+  });
+});
+
+// @DESC    UPDATE USER'S PROFILE PICTURE
+// @ROUTE   PATCH /api/v1/profile/myprofilepic
+// @ACCESS  PRIVATE - owner
+exports.updateMyProfilePic = asyncHandler(async (req, res, next) => {
+  // HANDLE IMAGE NOT EXISTS OR NOT MEET REQUIREDMENT
+  if (
+    !req.files &&
+    !req.files.profilePic &&
+    !req.files.profilePic.mimetype.startsWith('image') &&
+    !req.files.profilePic.size < 5000000
+  ) {
+    return next(
+      new CustomError(`Please upload a valid image under the size of 5mb`, 400)
+    );
+  }
+
+  // PROCESS IMAGE WITH SHARP AND SAVE TO FILE
+  const fileName = `user-${req.user.id}-profile.jpeg`;
+  await sharp(req.files.profilePic.data)
+    .resize(500, 500)
+    .toFormat('jpeg')
+    .jpeg({ quality: 90 })
+    .toFile(`public/img/users/${fileName}`);
+
+  await User.findByIdAndUpdate(
+    req.user.id,
+    {
+      profilePic: fileName,
+    },
+    { new: true, runValidators: true }
+  );
+  const profile = await Profile.findOne({ user: req.user.id });
   res.status(200).json({
     status: 'success',
     data: { profile },

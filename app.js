@@ -2,6 +2,7 @@ const express = require('express');
 const errorController = require('./controllers/errorController');
 const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
+const fileUpload = require('express-fileupload');
 
 const authRouter = require('./routes/authRouter');
 const userRouter = require('./routes/userRouter');
@@ -17,6 +18,7 @@ if (process.env.NODE_ENV === 'development') {
 }
 app.use(express.json());
 app.use(cookieParser());
+app.use(fileUpload());
 
 // SERVE STATIC FILES
 app.use(express.static(`${__dirname}/public`));
