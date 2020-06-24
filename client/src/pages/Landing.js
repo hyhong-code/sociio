@@ -12,7 +12,7 @@ const Landing = () => {
             anywhere!
           </p>
           <div className="mt-4">
-            <Link to="/login" className="btn btn-primary btn-lg px-4">
+            <Link to="/signin" className="btn btn-primary btn-lg px-4">
               Sign in
             </Link>
             <Link to="/signup" className="btn btn-secondary btn-lg ml-2">

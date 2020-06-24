@@ -8,7 +8,7 @@ const UploadPhotoForm = () => {
       </label>
       <input
         type="file"
-        className="form-control-file mb-1 btn"
+        className="form-control-file mb-3 btn"
         id="exampleFormControlFile1"
       />
       <input type="submit" value="Upload" className="btn btn-secondary px-4" />

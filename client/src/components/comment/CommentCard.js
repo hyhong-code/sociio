@@ -10,6 +10,7 @@ const CommentCard = () => {
           <Link to="/profile" className="d-flex align-items-center">
             <img
               src={defaultImg}
+              alt="profilePic"
               className="float-left rounded-circle d-block mr-3"
               width="50"
             />
