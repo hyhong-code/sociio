@@ -21,10 +21,12 @@ const UpdateInfoForm = () => {
           <input type="text" className="form-control" placeholder="Address" />
         </div>
         <small className="d-block mb-3">Your address wont't be shared.</small>
-        <a href="" className="btn btn-secondary px-3">
-          Back
-        </a>
-        <input type="submit" className="btn btn-info" value="Update" />
+        <div className="d-flex justify-content-center">
+          <a href="" className="btn btn-secondary px-3 mr-2">
+            Back
+          </a>
+          <input type="submit" className="btn btn-info" value="Update" />
+        </div>
       </form>
     </div>
   );

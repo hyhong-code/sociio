@@ -9,7 +9,7 @@ const UserActivity = () => {
       <div class="accordion" id="accordion">
         <UserPostsList />
         <UserLikedList />
-        <UserCommentedList />
+        <UserCommentedList/>
       </div>
     </div>
   );

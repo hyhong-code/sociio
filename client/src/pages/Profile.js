@@ -1,4 +1,10 @@
 import React from 'react';
+import ProfilePanel from '../components/profile/ProfilePanel';
+import UserActivity from '../components/profile/UserActivity';
+import FollowList from '../components/profile/FollowList';
+import UpdateInfoForm from '../components/profile/UpdateInfoForm';
+import UpdatePasswordForm from '../components/profile/UpdatePasswordForm';
+import DeleteAccountForm from '../components/profile/DeleteAccountForm';
 
 const Profile = () => {
   return (
@@ -12,7 +18,14 @@ const Profile = () => {
             <i className="fas fa-plus mr-2"></i>FOLLOW
           </button>
         </div>
-        <div className="row"></div>
+        <div className="row">
+          <ProfilePanel />
+          {/* <FollowList/> */}
+          {/* <UpdateInfoForm /> */}
+          {/* <UpdatePasswordForm/> */}
+          {/* <DeleteAccountForm /> */}
+          <UserActivity />
+        </div>
       </div>
     </section>
   );

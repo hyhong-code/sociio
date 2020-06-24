@@ -1,5 +1,5 @@
 import React from 'react';
-import defaultImg from '../img/default.jpeg';
+import defaultImg from '../../img/default.jpeg';
 
 const CommentCard = () => {
   return (

@@ -6,6 +6,7 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
 import App from './App';
 
+
 const middlewares = [thunk];
 const store = createStore(() => {},
 composeWithDevTools(applyMiddleware(...middlewares)));

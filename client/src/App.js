@@ -6,7 +6,10 @@ import Home from './pages/Home';
 import Comment from './pages/Comment';
 import Signin from './pages/Signin';
 import Signup from './pages/Signup';
+import Profile from './pages/Profile';
 import './App.css';
+
+
 
 const App = () => {
   return (
@@ -18,7 +21,8 @@ const App = () => {
           {/* <Home /> */}
           {/* <Comment /> */}
           {/* <Signin /> */}
-          <Signup />
+          {/* <Signup /> */}
+          <Profile />
         </Switch>
       </Fragment>
     </BrowserRouter>

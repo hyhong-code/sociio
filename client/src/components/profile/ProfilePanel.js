@@ -1,11 +1,12 @@
 import React from 'react';
+import defaultImg from '../../img/default.jpeg';
 import UploadPhotoForm from './UploadPhotoForm';
 
 const ProfilePanel = () => {
   return (
     <div className="col-md-4 mb-4 d-flex flex-column justify-content-center align-items-center py-3 py-md-5 rounded">
       <img
-        src="./img/default.jpeg"
+        src={defaultImg}
         alt=""
         className="img-fluid rounded-circle mb-3"
         width="200"
@@ -35,7 +36,7 @@ const ProfilePanel = () => {
         <UploadPhotoForm />
       </form>
       <div>
-        <a href="" className="btn btn-primary px-4">
+        <a href="" className="btn btn-primary px-4 mr-1">
           Edit Profile
         </a>
         <a href="" className="btn btn-danger">

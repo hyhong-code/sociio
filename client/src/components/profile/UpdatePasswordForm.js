@@ -27,7 +27,8 @@ const UpdatePasswordForm = () => {
             placeholder="Confirm Password"
           />
         </div>
-        <a href="" className="btn btn-secondary px-3">
+        <div className="d-flex justify-content-center">
+        <a href="" className="btn btn-secondary px-3 mr-2">
           Back
         </a>
         <input
@@ -35,6 +36,8 @@ const UpdatePasswordForm = () => {
           className="btn btn-warning text-parimary"
           value="Reset"
         />
+        </div>
+
       </form>
     </div>
   );

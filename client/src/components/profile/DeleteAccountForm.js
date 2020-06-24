@@ -16,14 +16,16 @@ const DeleteAccountForm = () => {
         <small className="d-block mb-3 text-danger">
           Your account won't be recovered.
         </small>
-        <a href="" className="btn btn-success px-3">
-          Back
-        </a>
-        <input
-          type="submit"
-          className="btn btn-danger"
-          value="Delete Account"
-        />
+        <div className="d-flex justify-content-center">
+          <a href="" className="btn btn-success px-3 mr-2">
+            Back
+          </a>
+          <input
+            type="submit"
+            className="btn btn-danger"
+            value="Delete Account"
+          />
+        </div>
       </form>
     </div>
   );
