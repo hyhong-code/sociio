@@ -22,11 +22,7 @@ const Signup = ({ signUp, setAlert, history }) => {
 
   const handleSubmit = async (evt) => {
     evt.preventDefault();
-    if (password !== confirmPassword) {
-      setAlert(`Passwords do not match`);
-    } else {
-      await signUp(formData, history);
-    }
+    await signUp(formData, history);
   };
 
   return (
