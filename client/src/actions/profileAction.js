@@ -14,9 +14,9 @@ import {
   DISPLAY_USER_LIKED,
 } from './actionTypes';
 
-export const getProfile = () => async (dispatch) => {
+export const getProfile = (id) => async (dispatch) => {
   try {
-    const resp = await axios.get('/api/v1/profile/me');
+    const resp = await axios.get(`/api/v1/users/${id}/profile`);
 
     dispatch({
       type: GET_PROFILE,

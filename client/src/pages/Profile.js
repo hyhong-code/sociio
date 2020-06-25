@@ -8,13 +8,21 @@ import DeleteAccountForm from '../components/profile/DeleteAccountForm';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { getProfile } from '../actions/profileAction';
+import { withRouter } from 'react-router-dom';
 
-const Profile = ({ profile, getProfile }) => {
+const Profile = ({ profile, getProfile, match, auth, history }) => {
   useEffect(() => {
     (async () => {
-      getProfile();
+      if (!match.params.id) {
+        if (!auth.myProfile) {
+          return history.push('/');
+        }
+        getProfile(auth.myProfile.user.id);
+      } else {
+        getProfile(match.params.id);
+      }
     })();
-  }, []);
+  }, [match]);
 
   let panelView;
   switch (profile.panelView) {
@@ -59,7 +67,7 @@ const Profile = ({ profile, getProfile }) => {
             {profile.profile.user.name} <i className="far fa-address-card"></i>
           </h1>
           <button className="btn btn-primary mb-3 mb-md-5">
-            <i className="fas fa-plus mr-2"></i>FOLLOWds
+            <i className="fas fa-plus mr-2"></i>FOLLOW
           </button>
         </div>
         <div className="row">
@@ -80,6 +88,6 @@ Profile.propTypes = {
   getProfile: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = ({ profile }) => ({ profile });
+const mapStateToProps = ({ profile, auth }) => ({ profile, auth });
 
-export default connect(mapStateToProps, { getProfile })(Profile);
+export default connect(mapStateToProps, { getProfile })(withRouter(Profile));

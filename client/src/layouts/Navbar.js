@@ -76,7 +76,7 @@ const Navbar = ({ auth }) => {
           sociio
         </Link>
         <div className="d-flex justify-content-between flex-grow-1">
-          {!auth.loading && auth.isAuthorized ? authLinks : guestLinks}
+          {auth.isAuthorized ? authLinks : guestLinks}
         </div>
       </div>
     </nav>

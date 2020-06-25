@@ -8,7 +8,10 @@ const ProfileCommentCard = ({ comment }) => {
     <div className="card border-primary mb-3">
       <div className="card-body p-3">
         <div className="d-flex align-items-center">
-          <Link to="/profile" className="d-flex align-items-center">
+          <Link
+            to={`/profile/${comment.commentedBy.id}`}
+            className="d-flex align-items-center"
+          >
             <h5 className="card-title mb-0">John Doe</h5>
             <h6 className="card-subtitle ml-2 text-muted">@john-doe</h6>
           </Link>
@@ -26,7 +29,10 @@ const ProfileCommentCard = ({ comment }) => {
         <div className="card border-dark mb-3">
           <div className="card-body p-2">
             <div className="d-flex align-items-center">
-              <Link to="/profile" className="d-flex align-items-center">
+              <Link
+                to={`/profile/${comment.post.postedBy.id}`}
+                className="d-flex align-items-center"
+              >
                 <img
                   src={defaultPic}
                   className="float-left rounded-circle d-block mr-3"

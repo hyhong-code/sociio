@@ -32,21 +32,26 @@ export const signUp = (formData, history) => async (dispatch) => {
   }
 };
 
-export const signIn = (formData, history) => async (dispatch) => {
+export const signIn = (formData) => async (dispatch) => {
   try {
     const resp = await axios.post(
       '/api/v1/auth/login',
       formData,
       axiosPostConfig
     );
-    dispatch({
-      type: SIGNIN_SUCCESS,
-    });
+    dispatch(getMyProfile());
     dispatch(setAlert(`Sign in success`, false));
     console.log(resp.data);
-    history.push('/profile');
   } catch (error) {
     console.log(error.response.data);
     dispatch(setAlert(error.response.data.message, true, 8000));
   }
+};
+
+export const getMyProfile = () => async (dispatch) => {
+  const myProfile = await axios.get(`/api/v1/profile/me`);
+  dispatch({
+    type: SIGNIN_SUCCESS,
+    payload: myProfile.data.data.profile,
+  });
 };

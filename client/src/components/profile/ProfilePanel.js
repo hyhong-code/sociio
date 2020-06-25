@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import defaultImg from '../../img/default.jpeg';
 import UploadPhotoForm from './UploadPhotoForm';
 import { connect } from 'react-redux';
@@ -18,6 +18,7 @@ const ProfilePanel = ({
   displayProfileFollowers,
   displayProfileFollowing,
   profile,
+  auth,
 }) => {
   return (
     <div className="col-md-4 mb-4 d-flex flex-column justify-content-center align-items-center py-3 py-md-5 rounded">
@@ -58,29 +59,33 @@ const ProfilePanel = ({
           {!!profile.bio ? profile.bio : 'User has not yet set a bio.'}
         </span>
       </p>
-      <form className="text-center">
-        <UploadPhotoForm />
-      </form>
-      <div className="d-flex flex-column">
-        <button
-          onClick={displayProfileEditInfo}
-          className="btn btn-outline-primary px-4 mb-1"
-        >
-          Edit Profile
-        </button>
-        <button
-          onClick={displayProfileEditPassword}
-          className="btn btn-outline-info px-4 mb-1"
-        >
-          Reset Password
-        </button>
-        <button
-          onClick={displayProfileDelectAccount}
-          className="btn btn-outline-danger"
-        >
-          Delete Account
-        </button>
-      </div>
+      {auth.myProfile && profile.user.id == auth.myProfile.user.id && (
+        <Fragment>
+          <form className="text-center">
+            <UploadPhotoForm />
+          </form>
+          <div className="d-flex flex-column">
+            <button
+              onClick={displayProfileEditInfo}
+              className="btn btn-outline-primary px-4 mb-1"
+            >
+              Edit Profile
+            </button>
+            <button
+              onClick={displayProfileEditPassword}
+              className="btn btn-outline-info px-4 mb-1"
+            >
+              Reset Password
+            </button>
+            <button
+              onClick={displayProfileDelectAccount}
+              className="btn btn-outline-danger"
+            >
+              Delete Account
+            </button>
+          </div>
+        </Fragment>
+      )}
     </div>
   );
 };
@@ -94,7 +99,9 @@ ProfilePanel.propTypes = {
   profile: PropTypes.object.isRequired,
 };
 
-export default connect(null, {
+const mapStateToProps = ({ auth }) => ({ auth });
+
+export default connect(mapStateToProps, {
   displayProfileEditInfo,
   displayProfileDelectAccount,
   displayProfileEditPassword,
