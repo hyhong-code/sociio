@@ -7,12 +7,19 @@ import UpdatePasswordForm from '../components/profile/UpdatePasswordForm';
 import DeleteAccountForm from '../components/profile/DeleteAccountForm';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { getProfile } from '../actions/profileAction';
 
-const Profile = ({ profile }) => {
+const Profile = ({ profile, getProfile }) => {
+  useEffect(() => {
+    (async () => {
+      getProfile();
+    })();
+  }, []);
+
   let panelView;
   switch (profile.panelView) {
     case 'panel':
-      panelView = <ProfilePanel />;
+      panelView = <ProfilePanel profile={profile.profile} />;
       break;
     case 'followers':
       panelView = <FollowList />;
@@ -35,29 +42,34 @@ const Profile = ({ profile }) => {
   }
 
   return (
-    <section id="profile" className="bg-light text-dark">
-      <div className="container">
-        <div className="text-center">
-          <h1 className="display-4">
-            JOHN DOE <i className="far fa-address-card"></i>
-          </h1>
-          <button className="btn btn-primary mb-3 mb-md-5">
-            <i className="fas fa-plus mr-2"></i>FOLLOW
-          </button>
+    !profile.loading &&
+    profile.profile && (
+      <section id="profile" className="bg-light text-dark">
+        <div className="container">
+          <div className="text-center">
+            <h1 className="display-4">
+              {profile.profile.user.name}{' '}
+              <i className="far fa-address-card"></i>
+            </h1>
+            <button className="btn btn-primary mb-3 mb-md-5">
+              <i className="fas fa-plus mr-2"></i>FOLLOW
+            </button>
+          </div>
+          <div className="row">
+            {panelView}
+            <UserActivity />
+          </div>
         </div>
-        <div className="row">
-          {panelView}
-          <UserActivity />
-        </div>
-      </div>
-    </section>
+      </section>
+    )
   );
 };
 
 Profile.propTypes = {
   profile: PropTypes.object.isRequired,
+  getProfile: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = ({ profile }) => ({ profile });
 
-export default connect(mapStateToProps)(Profile);
+export default connect(mapStateToProps, { getProfile })(Profile);

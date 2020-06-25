@@ -1,6 +1,9 @@
 import React from 'react';
+import { displayProfilePanel } from '../../actions/profileAction';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
-const DeleteAccountForm = () => {
+const DeleteAccountForm = ({ displayProfilePanel }) => {
   return (
     <div className="col-md-4 mb-4 d-flex flex-column justify-content-center align-items-center py-5 rounded">
       <form action="">
@@ -17,7 +20,12 @@ const DeleteAccountForm = () => {
           Your account won't be recovered.
         </small>
         <div className="d-flex justify-content-center">
-          <button className="btn btn-success px-3 mr-2">Back</button>
+          <button
+            onClick={displayProfilePanel}
+            className="btn btn-success px-3 mr-2"
+          >
+            Back
+          </button>
           <input
             type="submit"
             className="btn btn-danger"
@@ -29,4 +37,8 @@ const DeleteAccountForm = () => {
   );
 };
 
-export default DeleteAccountForm;
+DeleteAccountForm.propTypes = {
+  displayProfilePanel: PropTypes.func.isRequired,
+};
+
+export default connect(null, { displayProfilePanel })(DeleteAccountForm);

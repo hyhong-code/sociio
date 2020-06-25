@@ -21,6 +21,14 @@ const UpdateInfoForm = ({ displayProfilePanel }) => {
           <input type="email" className="form-control" placeholder="Email" />
         </div>
         <div className="form-group">
+          <textarea
+            name=""
+            rows="2"
+            className="form-control"
+            placeholder="Bio"
+          ></textarea>
+        </div>
+        <div className="form-group">
           <input type="text" className="form-control" placeholder="Address" />
         </div>
         <small className="d-block mb-3">Your address wont't be shared.</small>
