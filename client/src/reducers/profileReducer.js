@@ -8,12 +8,16 @@ import {
   DISPLAY_PROFILE_EDITINFO,
   DISPLAY_PROFILE_EDITPASSWORD,
   DISPLAY_PROFILE_DELETEACCOUNT,
+  DISPLAY_USER_COMMENTED,
+  DISPLAY_USER_SHARED,
+  DISPLAY_USER_LIKED,
 } from '../actions/actionTypes';
 
 const INITIAL_STATE = {
   profile: null,
   loading: true,
   panelView: 'panel',
+  activityView: 'commented',
 };
 
 const profileReducer = (state = INITIAL_STATE, action) => {
@@ -37,6 +41,13 @@ const profileReducer = (state = INITIAL_STATE, action) => {
       return { ...state, panelView: 'editPassword' };
     case DISPLAY_PROFILE_DELETEACCOUNT:
       return { ...state, panelView: 'deleteAccount' };
+    // ACTIVITY VIEWS
+    case DISPLAY_USER_COMMENTED:
+      return { ...state, activityView: 'commented' };
+    case DISPLAY_USER_SHARED:
+      return { ...state, activityView: 'shared' };
+    case DISPLAY_USER_LIKED:
+      return { ...state, activityView: 'liked' };
 
     default:
       return state;

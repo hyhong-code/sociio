@@ -47,7 +47,7 @@ const Profile = ({ profile, getProfile }) => {
       panelView = <DeleteAccountForm />;
       break;
     default:
-      panelView = <ProfilePanel />;
+      panelView = <ProfilePanel profile={profile.profile} />;
       break;
   }
 

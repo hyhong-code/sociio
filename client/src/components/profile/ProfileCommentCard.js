@@ -1,8 +1,9 @@
 import React from 'react';
 import defaultPic from '../../img/default.jpeg';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
-const ProfileCommentCard = () => {
+const ProfileCommentCard = ({ comment }) => {
   return (
     <div className="card border-primary mb-3">
       <div className="card-body p-3">
@@ -13,12 +14,9 @@ const ProfileCommentCard = () => {
           </Link>
         </div>
         <hr className="mt-0 mb-1" />
-        <p className="card-text mb-0">
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Accusantium,
-          nesciunt.
-        </p>
+        <p className="card-text mb-0">{comment.text}</p>
         <div className="my-2 d-flex">
-          <small className="text-muted">Wednesday, June 24, 2020</small>
+          <small className="text-muted">{comment.commentedAt}</small>
           <span className="delete-post badge badge-danger ml-auto mr-1 text-light">
             X
           </span>
@@ -36,19 +34,17 @@ const ProfileCommentCard = () => {
                   alt="profilePic"
                 />
                 <div>
-                  <h5 className="card-title">John Doe</h5>
-                  <h6 className="card-subtitle text-muted">@john-doe</h6>
+                  <h5 className="card-title">{comment.post.postedBy.name}</h5>
+                  <h6 className="card-subtitle text-muted">
+                    @{comment.post.postedBy.handle}
+                  </h6>
                 </div>
               </Link>
             </div>
             <hr className="my-1" />
-            <p className="card-text my-0">
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-              Accusantium, nesciunt. Soluta, error iure consectetur illum itaque
-              aliquid, natus debitis repudiandae sunt magni dolorum, quis ipsum.
-            </p>
+            <p className="card-text my-0">{comment.post.text}</p>
             <div className="d-flex">
-              <small className="text-muted">Wednesday, June 24, 2020</small>
+              <small className="text-muted">{comment.post.postedAt}</small>
               <span className="delete-post badge badge-danger ml-auto mr-1 text-light">
                 X
               </span>
@@ -56,10 +52,10 @@ const ProfileCommentCard = () => {
 
             <div className="mb-1 d-flex align-items-center">
               <span className="ml-1 badge badge-secondary px-2 py-1">
-                5 likes
+                {comment.post.numLikes} likes
               </span>
               <span className="ml-1 badge badge-primary px-2 py-1">
-                3 comments
+                {comment.post.numComments} comments
               </span>
               <Link
                 to="/comment"
@@ -73,6 +69,10 @@ const ProfileCommentCard = () => {
       </div>
     </div>
   );
+};
+
+ProfileCommentCard.propTypes = {
+  comment: PropTypes.object.isRequired,
 };
 
 export default ProfileCommentCard;

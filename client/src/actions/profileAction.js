@@ -9,6 +9,9 @@ import {
   DISPLAY_PROFILE_EDITINFO,
   DISPLAY_PROFILE_EDITPASSWORD,
   DISPLAY_PROFILE_DELETEACCOUNT,
+  DISPLAY_USER_COMMENTED,
+  DISPLAY_USER_SHARED,
+  DISPLAY_USER_LIKED,
 } from './actionTypes';
 
 export const getProfile = () => async (dispatch) => {
@@ -25,6 +28,26 @@ export const getProfile = () => async (dispatch) => {
   }
 };
 
+// SET PROFILE ACTIVITY VIEWS
+export const displayUserCommented = () => (dispatch) => {
+  dispatch({
+    type: DISPLAY_USER_COMMENTED,
+  });
+};
+
+export const displayUserShared = () => (dispatch) => {
+  dispatch({
+    type: DISPLAY_USER_SHARED,
+  });
+};
+
+export const displayUserLiked = () => (dispatch) => {
+  dispatch({
+    type: DISPLAY_USER_LIKED,
+  });
+};
+
+// SET PROFILE PANEL VIEWS
 export const displayProfilePanel = () => (dispatch) => {
   dispatch({
     type: DISPLAY_PROFILE_PANEL,
