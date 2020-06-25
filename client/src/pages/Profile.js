@@ -51,7 +51,7 @@ const Profile = ({ profile, getProfile }) => {
       break;
   }
 
-  return !profile.loading && profile.profile ? (
+  return profile.profile ? (
     <section id="profile" className="bg-light text-dark">
       <div className="container">
         <div className="text-center">
@@ -59,7 +59,7 @@ const Profile = ({ profile, getProfile }) => {
             {profile.profile.user.name} <i className="far fa-address-card"></i>
           </h1>
           <button className="btn btn-primary mb-3 mb-md-5">
-            <i className="fas fa-plus mr-2"></i>FOLLOW
+            <i className="fas fa-plus mr-2"></i>FOLLOWds
           </button>
         </div>
         <div className="row">
