@@ -1,8 +1,17 @@
 import React from 'react';
 import defaultImg from '../../img/default.jpeg';
 import UploadPhotoForm from './UploadPhotoForm';
+import { connect } from 'react-redux';
+import {
+  displayProfileEditInfo,
+  displayProfileDelectAccount,
+} from '../../actions/profileAction';
+import PropTypes from 'prop-types';
 
-const ProfilePanel = () => {
+const ProfilePanel = ({
+  displayProfileEditInfo,
+  displayProfileDelectAccount,
+}) => {
   return (
     <div className="col-md-4 mb-4 d-flex flex-column justify-content-center align-items-center py-3 py-md-5 rounded">
       <img
@@ -36,11 +45,29 @@ const ProfilePanel = () => {
         <UploadPhotoForm />
       </form>
       <div>
-        <button className="btn btn-primary px-4 mr-1">Edit Profile</button>
-        <button className="btn btn-danger">Delete Account</button>
+        <button
+          onClick={displayProfileEditInfo}
+          className="btn btn-primary px-4 mr-1"
+        >
+          Edit Profile
+        </button>
+        <button
+          onClick={displayProfileDelectAccount}
+          className="btn btn-danger"
+        >
+          Delete Account
+        </button>
       </div>
     </div>
   );
 };
 
-export default ProfilePanel;
+ProfilePanel.propTypes = {
+  displayProfileEditInfo: PropTypes.func.isRequired,
+  displayProfileDelectAccount: PropTypes.func.isRequired,
+};
+
+export default connect(null, {
+  displayProfileEditInfo,
+  displayProfileDelectAccount,
+})(ProfilePanel);

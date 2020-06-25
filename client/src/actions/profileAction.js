@@ -8,7 +8,7 @@ import {
   DISPLAY_PROFILE_EDITINFO,
   DISPLAY_PROFILE_EDITPASSWORD,
   DISPLAY_PROFILE_DELETEACCOUNT,
-} from './profileAction';
+} from './actionTypes';
 
 export const displayProfilePanel = () => (dispatch) => {
   dispatch({
