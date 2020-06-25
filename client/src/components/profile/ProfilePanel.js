@@ -6,6 +6,8 @@ import {
   displayProfileEditInfo,
   displayProfileDelectAccount,
   displayProfileEditPassword,
+  displayProfileFollowers,
+  displayProfileFollowing,
 } from '../../actions/profileAction';
 import PropTypes from 'prop-types';
 
@@ -13,6 +15,8 @@ const ProfilePanel = ({
   displayProfileEditInfo,
   displayProfileDelectAccount,
   displayProfileEditPassword,
+  displayProfileFollowers,
+  displayProfileFollowing,
   profile,
 }) => {
   return (
@@ -28,24 +32,31 @@ const ProfilePanel = ({
       <p className="text-muted">
         <i className="fas fa-location-arrow mr-1"></i>Seattle
       </p>
+
       <div className="mb-3 d-flex">
-        <p className="lead mr-3">
-          Followers:{' '}
-          <span className="badge badge-primary">
-            {profile.influence.followers.length}
-          </span>
-        </p>
-        <p className="lead">
-          Following:{' '}
-          <span className="badge badge-info">
-            {profile.influence.followers.length}
-          </span>
-        </p>
+        <a onClick={displayProfileFollowers} className="clickable">
+          <p className="lead mr-3 my-0">
+            Followers:{' '}
+            <span className="badge badge-primary">
+              {profile.influence.followers.length}
+            </span>
+          </p>
+        </a>
+        <a onClick={displayProfileFollowing} className="clickable">
+          <p className="lead my-0">
+            Following:{' '}
+            <span className="badge badge-info">
+              {profile.influence.following.length}
+            </span>
+          </p>
+        </a>
       </div>
 
       <p className="text-center pt-3 border-top">
         <strong className="mr-2">Bio:</strong>
-        <span>{!!profile.bio ? profile.bio : 'User not yet has a bio.'}</span>
+        <span>
+          {!!profile.bio ? profile.bio : 'User has not yet set a bio.'}
+        </span>
       </p>
       <form className="text-center">
         <UploadPhotoForm />
@@ -78,10 +89,15 @@ ProfilePanel.propTypes = {
   displayProfileEditInfo: PropTypes.func.isRequired,
   displayProfileDelectAccount: PropTypes.func.isRequired,
   displayProfileEditPassword: PropTypes.func.isRequired,
+  displayProfileFollowers: PropTypes.func.isRequired,
+  displayProfileFollowing: PropTypes.func.isRequired,
+  profile: PropTypes.object.isRequired,
 };
 
 export default connect(null, {
   displayProfileEditInfo,
   displayProfileDelectAccount,
   displayProfileEditPassword,
+  displayProfileFollowers,
+  displayProfileFollowing,
 })(ProfilePanel);

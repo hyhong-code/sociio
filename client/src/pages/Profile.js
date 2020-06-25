@@ -22,10 +22,20 @@ const Profile = ({ profile, getProfile }) => {
       panelView = <ProfilePanel profile={profile.profile} />;
       break;
     case 'followers':
-      panelView = <FollowList />;
+      panelView = (
+        <FollowList
+          type="Followers"
+          users={profile.profile.influence.followers}
+        />
+      );
       break;
     case 'following':
-      panelView = <FollowList />;
+      panelView = (
+        <FollowList
+          type="Following"
+          users={profile.profile.influence.following}
+        />
+      );
       break;
     case 'editInfo':
       panelView = <UpdateInfoForm />;
@@ -41,27 +51,27 @@ const Profile = ({ profile, getProfile }) => {
       break;
   }
 
-  return (
-    !profile.loading &&
-    profile.profile && (
-      <section id="profile" className="bg-light text-dark">
-        <div className="container">
-          <div className="text-center">
-            <h1 className="display-4">
-              {profile.profile.user.name}{' '}
-              <i className="far fa-address-card"></i>
-            </h1>
-            <button className="btn btn-primary mb-3 mb-md-5">
-              <i className="fas fa-plus mr-2"></i>FOLLOW
-            </button>
-          </div>
-          <div className="row">
-            {panelView}
-            <UserActivity />
-          </div>
+  return !profile.loading && profile.profile ? (
+    <section id="profile" className="bg-light text-dark">
+      <div className="container">
+        <div className="text-center">
+          <h1 className="display-4">
+            {profile.profile.user.name} <i className="far fa-address-card"></i>
+          </h1>
+          <button className="btn btn-primary mb-3 mb-md-5">
+            <i className="fas fa-plus mr-2"></i>FOLLOW
+          </button>
         </div>
-      </section>
-    )
+        <div className="row">
+          {panelView}
+          <UserActivity />
+        </div>
+      </div>
+    </section>
+  ) : (
+    <div className="spinner-border text-primary spinner-loader" role="status">
+      <span className="sr-only">Loading...</span>
+    </div>
   );
 };
 

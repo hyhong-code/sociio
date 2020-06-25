@@ -25,4 +25,15 @@ const InfluenceSchema = new mongoose.Schema({
   },
 });
 
+// POPULATE FOLLOWERS AND FOLLOWING
+InfluenceSchema.pre(/^find/, function () {
+  this.populate({
+    path: 'followers',
+    select: '-__v',
+  }).populate({
+    path: 'following',
+    select: '-__v',
+  });
+});
+
 module.exports = mongoose.model('Influence', InfluenceSchema);
